@@ -17,9 +17,8 @@
             --text-sub: #8e8e93;
             --text-dim: #636366;
             --accent-blue: #0a84ff;
-            --accent-orange: #ff9f0a;
-            --pill-bg: rgba(255, 255, 255, 0.08);
-            --pill-text: #8e8e93;
+            --badge-bg: #2c2c2e;
+            --badge-text: #a1a1a6;
             --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, sans-serif;
         }
 
@@ -39,7 +38,6 @@
             -webkit-font-smoothing: antialiased;
         }
 
-        /* Заголовок и поиск */
         .header {
             max-width: 500px;
             margin: 0 auto 20px;
@@ -50,6 +48,7 @@
             font-weight: 700;
             letter-spacing: -0.5px;
             margin-bottom: 14px;
+            text-align: center;
         }
 
         .search-wrap {
@@ -84,7 +83,6 @@
             pointer-events: none;
         }
 
-        /* Список карточек */
         .cards-list {
             max-width: 500px;
             margin: 0 auto;
@@ -93,7 +91,6 @@
             gap: 12px;
         }
 
-        /* Стиль карточки приложения */
         .app-row {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
@@ -102,17 +99,15 @@
             display: flex;
             flex-direction: column;
             gap: 14px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
             position: relative;
         }
 
         .app-top {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 14px;
         }
 
-        /* Двойная иконка */
         .icon-stack {
             position: relative;
             width: 62px;
@@ -125,7 +120,6 @@
             height: 62px;
             border-radius: 15px;
             background: #2c2c2e;
-            object-fit: cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -166,90 +160,65 @@
             object-fit: cover;
         }
 
-        /* Инфо блок приложения */
         .app-meta {
             flex: 1;
             min-width: 0;
-        }
-
-        .app-title-wrap {
             display: flex;
-            align-items: baseline;
-            gap: 6px;
-            margin-bottom: 2px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 4px;
         }
 
         .app-title {
             font-size: 16px;
-            font-weight: 600;
+            font-weight: 700;
             color: #fff;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            width: 100%;
         }
 
         .app-mask-title {
-            font-size: 13px;
+            font-size: 14px;
             color: var(--text-sub);
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-        }
-
-        .app-dev {
-            font-size: 13px;
-            color: var(--text-dim);
-            margin-bottom: 6px;
-        }
-
-        /* Теги (Бейджики) */
-        .badges-row {
-            display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
+            width: 100%;
         }
 
         .badge {
-            background: var(--pill-bg);
-            color: var(--pill-text);
-            font-size: 11px;
+            background: var(--badge-bg);
+            color: var(--badge-text);
+            font-size: 12px;
             font-weight: 500;
-            padding: 3px 8px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 4px;
+            padding: 4px 10px;
+            border-radius: 8px;
+            margin-top: 2px;
         }
 
-        /* Нижний ряд карточки */
         .app-bottom {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 4px;
-            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .system-reqs {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-            font-size: 12px;
+            font-size: 13px;
             color: var(--text-dim);
-        }
-
-        .system-reqs span {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
 
-        /* Кнопка "Скачать" / "Установить" */
         .btn-download {
             background: var(--accent-blue);
             color: #fff;
             font-size: 14px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             padding: 8px 18px;
             border-radius: 20px;
@@ -264,11 +233,6 @@
             filter: brightness(0.9);
         }
 
-        .btn-download.orange {
-            background: var(--accent-orange);
-        }
-
-        /* Плавающее нижнее меню (Floating Tab Bar) */
         .tabbar-wrap {
             position: fixed;
             bottom: max(16px, env(safe-area-inset-bottom));
@@ -332,219 +296,1171 @@
         <h1>Каталог</h1>
         <div class="search-wrap">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Поиск (Сбер, Т-Банк, ВТБ...)" onkeyup="filterApps()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Поиск приложения..." onkeyup="filterApps()">
         </div>
     </div>
 
     <div class="cards-list" id="appsContainer">
 
-        <!-- СберБанк (Online Active) -->
-        <div class="app-row" data-category="bank" data-search="online active сбер сбербанк sber">
-            <div class="app-top">
-                <div class="icon-stack">
-                    <div class="icon-main">
-                        <img src="icons/sber.webp" onerror="this.parentElement.textContent='С'" alt="Сбер">
-                    </div>
-                    <div class="icon-badge">
-                        <img src="icons/sber-active.webp" onerror="this.parentElement.textContent='OA'" alt="Маскировка">
-                    </div>
-                </div>
-                <div class="app-meta">
-                    <div class="app-title-wrap">
-                        <span class="app-title">СберБанк</span>
-                        <span class="app-mask-title">(Online Active)</span>
-                    </div>
-                    <div class="app-dev">ПАО Сбербанк</div>
-                    <div class="badges-row">
-                        <span class="badge">🇷🇺 Россия</span>
-                        <span class="badge">Finance</span>
-                    </div>
-                </div>
-            </div>
-            <div class="app-bottom">
-                <div class="system-reqs">
-                    <span>ℹ️ Версия 16.13.0</span>
-                    <span>📱 iOS 15.0+</span>
-                </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-active.plist">
-                    ⬇ Скачать
-                </a>
-            </div>
-        </div>
-
-        <!-- Т-Банк (AirPilot) -->
-        <div class="app-row" data-category="bank" data-search="airpilot т-банк тинькофф tinkoff">
-            <div class="app-top">
-                <div class="icon-stack">
-                    <div class="icon-main">
-                        <img src="icons/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Т-Банк">
-                    </div>
-                    <div class="icon-badge">
-                        <img src="icons/tbank-air.webp" onerror="this.parentElement.textContent='AP'" alt="Маскировка">
-                    </div>
-                </div>
-                <div class="app-meta">
-                    <div class="app-title-wrap">
-                        <span class="app-title">Т-Банк</span>
-                        <span class="app-mask-title">(AirPilot)</span>
-                    </div>
-                    <div class="app-dev">Т-Банк АО</div>
-                    <div class="badges-row">
-                        <span class="badge">🇷🇺 Россия</span>
-                        <span class="badge">Finance</span>
-                    </div>
-                </div>
-            </div>
-            <div class="app-bottom">
-                <div class="system-reqs">
-                    <span>ℹ️ Версия 2.1.1</span>
-                    <span>📱 iOS 15.0+</span>
-                </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-Air.plist">
-                    ⬇ Скачать
-                </a>
-            </div>
-        </div>
-
-        <!-- Ак Барс (Все Учтено) -->
+        <!-- ================= БАНКИ ================= -->
         <div class="app-row" data-category="bank" data-search="все учтено ак барс банк ak bars">
             <div class="app-top">
                 <div class="icon-stack">
-                    <div class="icon-main">
-                        <img src="icons/akbars.webp" onerror="this.parentElement.textContent='А'" alt="Ак Барс">
-                    </div>
-                    <div class="icon-badge">
-                        <img src="icons/akbars-vse.webp" onerror="this.parentElement.textContent='ВУ'" alt="Маскировка">
-                    </div>
+                    <div class="icon-main"><img src="icons/akbars.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/akbars-mask.webp" onerror="this.parentElement.textContent='ВУ'" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
-                    <div class="app-title-wrap">
-                        <span class="app-title">Ак Барс Банк</span>
-                        <span class="app-mask-title">(Все Учтено)</span>
-                    </div>
-                    <div class="app-dev">ПАО «АК БАРС» БАНК</div>
-                    <div class="badges-row">
-                        <span class="badge">🇷🇺 Россия</span>
-                        <span class="badge">Finance</span>
-                    </div>
+                    <div class="app-title">Ак Барс Банк</div>
+                    <div class="app-mask-title">Все Учтено</div>
+                    <div class="badge">Банки</div>
                 </div>
             </div>
             <div class="app-bottom">
-                <div class="system-reqs">
-                    <span>ℹ️ Версия 1.2.7</span>
-                    <span>📱 iOS 15.0+</span>
-                </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/akbarsbank.plist">
-                    ⬇ Скачать
-                </a>
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/akbarsbank.plist">⬇ Установить</a>
             </div>
         </div>
 
-        <!-- СберМобайл (Digital Detox) -->
-        <div class="app-row" data-category="other" data-search="digital detox сбермобайл связь sber">
+        <div class="app-row" data-category="bank" data-search="умный попутчик альфа банк беларусь alfa">
             <div class="app-top">
                 <div class="icon-stack">
-                    <div class="icon-main">
-                        <img src="icons/sbermobile.webp" onerror="this.parentElement.textContent='СМ'" alt="СберМобайл">
-                    </div>
-                    <div class="icon-badge">
-                        <img src="icons/sbermobile-fokus.webp" onerror="this.parentElement.textContent='DD'" alt="Маскировка">
-                    </div>
+                    <div class="icon-main"><img src="icons/alfaby.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfaby-mask.webp" onerror="this.parentElement.textContent='УП'" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
-                    <div class="app-title-wrap">
-                        <span class="app-title">СберМобайл</span>
-                        <span class="app-mask-title">(Digital Detox)</span>
-                    </div>
-                    <div class="app-dev">ООО «Сбербанк-Телеком»</div>
-                    <div class="badges-row">
-                        <span class="badge">🇷🇺 Россия</span>
-                        <span class="badge">Utilities</span>
-                    </div>
+                    <div class="app-title">Альфа-Банк (BY)</div>
+                    <div class="app-mask-title">Умный Попутчик</div>
+                    <div class="badge">Банки</div>
                 </div>
             </div>
             <div class="app-bottom">
-                <div class="system-reqs">
-                    <span>ℹ️ Версия 1.0.1</span>
-                    <span>📱 iOS 16.0+</span>
-                </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sbermobile-fokus.plist">
-                    ⬇ Скачать
-                </a>
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-belarus.plist">⬇ Установить</a>
             </div>
         </div>
 
-        <!-- Купер / СберМаркет -->
+        <div class="app-row" data-category="bank" data-search="bizkey альфа бизнес беларусь alfa">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/alfabizby.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfabizby-mask.webp" onerror="this.parentElement.textContent='BK'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Альфа-Бизнес (BY)</div>
+                    <div class="app-mask-title">BizKey</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-belarus.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="holder альфа банк alfa">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/alfa.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfa-holder.webp" onerror="this.parentElement.textContent='HO'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Альфа-Банк</div>
+                    <div class="app-mask-title">Holder</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-holder.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="a-interior альфа банк alfa">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/alfa.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfa-interior.webp" onerror="this.parentElement.textContent='AI'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Альфа-Банк</div>
+                    <div class="app-mask-title">A-Interior</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-interior.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="advance альфа банк alfa">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/alfa.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfa-advance.webp" onerror="this.parentElement.textContent='AD'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Альфа-Банк</div>
+                    <div class="app-mask-title">Advance</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-upgrade.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="bizbalance альфа бизнес alfa">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/alfabiz.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfabiz-balance.webp" onerror="this.parentElement.textContent='BB'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Альфа-Бизнес</div>
+                    <div class="app-mask-title">BizBalance</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-kakyest.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="business ties альфа бизнес alfa">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/alfabiz.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/alfabiz-ties.webp" onerror="this.parentElement.textContent='BT'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Альфа-Бизнес</div>
+                    <div class="app-mask-title">Business Ties</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-svyazi.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="монт бланк бланк банк blanc">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/blanc.webp" onerror="this.parentElement.textContent='Б'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/blanc-mask.webp" onerror="this.parentElement.textContent='МБ'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Бланк банк</div>
+                    <div class="app-mask-title">Монт Бланк</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/blanc.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="home ключи дом рф dom.rf">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/domrf.webp" onerror="this.parentElement.textContent='Д'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/domrf-mask.webp" onerror="this.parentElement.textContent='HK'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Банк ДОМ.РФ</div>
+                    <div class="app-mask-title">Home Ключи</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/domrfbank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="цифровой сейф газпромбанк gazprom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/gazprom.webp" onerror="this.parentElement.textContent='Г'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/gazprom-mask.webp" onerror="this.parentElement.textContent='ЦС'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Газпромбанк</div>
+                    <div class="app-mask-title">Цифровой сейф</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/gazprombank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="авк гид металлинвестбанк">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/metallinvest.webp" onerror="this.parentElement.textContent='М'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/metallinvest-mask.webp" onerror="this.parentElement.textContent='АГ'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Металлинвестбанк</div>
+                    <div class="app-mask-title">АВК Гид</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/metallinvestbank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="coffee mood модульбанк">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/modul.webp" onerror="this.parentElement.textContent='М'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/modul-mask.webp" onerror="this.parentElement.textContent='CM'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Модульбанк</div>
+                    <div class="app-mask-title">Coffee Mood</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/modulebank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="lunarcode новикомбанк">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/novikom.webp" onerror="this.parentElement.textContent='Н'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/novikom-mask.webp" onerror="this.parentElement.textContent='LC'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Новикомбанк</div>
+                    <div class="app-mask-title">LunarCode</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/novikombank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="чайная псб промсвязьбанк psb">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/psb.webp" onerror="this.parentElement.textContent='П'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/psb-mask.webp" onerror="this.parentElement.textContent='Ч'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">ПСБ</div>
+                    <div class="app-mask-title">Чайная</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/psb.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="аут рокетбанк rocket">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/rocket.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/rocket-mask.webp" onerror="this.parentElement.textContent='А'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Рокетбанк</div>
+                    <div class="app-mask-title">Аут</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rocketbank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="бычок каберне россельхозбанк рсхб">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/rshb.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/rshb-mask.webp" onerror="this.parentElement.textContent='БК'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Россельхозбанк</div>
+                    <div class="app-mask-title">Бычок Каберне</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rosselhozbank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="ritm русский стандарт">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/rsb.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/rsb-mask.webp" onerror="this.parentElement.textContent='R'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Русский Стандарт</div>
+                    <div class="app-mask-title">Ritm</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/russianstandartbank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="online active сбер сбербанк sber">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sber.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sber-active.webp" onerror="this.parentElement.textContent='OA'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберБанк</div>
+                    <div class="app-mask-title">Online Active</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-active.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="online family сбер сбербанк sber">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sber.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sber-family.webp" onerror="this.parentElement.textContent='OF'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберБанк</div>
+                    <div class="app-mask-title">Online Family</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-family.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="online finance сбер сбербанк sber">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sber.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sber-finance.webp" onerror="this.parentElement.textContent='OF'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберБанк</div>
+                    <div class="app-mask-title">Online Finance</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-finance.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="al dente сбербизнес sber">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sberbiz.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sberbiz-aldente.webp" onerror="this.parentElement.textContent='AD'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберБизнес</div>
+                    <div class="app-mask-title">Al dente</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberbusiness-aldente.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="smart quiz сберкидс sber sberkids">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sberkids.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sberkids-quiz.webp" onerror="this.parentElement.textContent='SQ'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберKids</div>
+                    <div class="app-mask-title">Smart Quiz</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-quiz.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="booktracker сберкидс sber sberkids">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sberkids.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sberkids-book.webp" onerror="this.parentElement.textContent='BT'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберKids</div>
+                    <div class="app-mask-title">BookTracker</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-BookTracker.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="speakaboo сберкидс sber sberkids">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sberkids.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sberkids-speak.webp" onerror="this.parentElement.textContent='SB'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберKids</div>
+                    <div class="app-mask-title">SpeakaBoo</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-speakaboo.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="grino банк синара sinara">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sinara.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sinara-mask.webp" onerror="this.parentElement.textContent='G'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Банк Синара</div>
+                    <div class="app-mask-title">Grino</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sinara-bank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="финграм совкомбанк халва sovkom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sovkom.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sovkom-fingram.webp" onerror="this.parentElement.textContent='ФГ'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Совкомбанк</div>
+                    <div class="app-mask-title">ФинГрам</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-fingram.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="омп совкомбанк халва sovkom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sovkom.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sovkom-omp.webp" onerror="this.parentElement.textContent='О'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Совкомбанк</div>
+                    <div class="app-mask-title">ОМП</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-omp.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="синоптик+ совкомбанк халва sovkom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sovkom.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sovkom-sinoptik.webp" onerror="this.parentElement.textContent='С+'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Совкомбанк</div>
+                    <div class="app-mask-title">Синоптик+</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-sinoptik.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="скб совкомбанк халва sovkom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sovkom.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sovkom-skb.webp" onerror="this.parentElement.textContent='С'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Совкомбанк</div>
+                    <div class="app-mask-title">СКБ</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-skb.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="черника онлайн сургутнефтегазбанк">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sngb.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sngb-mask.webp" onerror="this.parentElement.textContent='ЧО'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Сургутнефтегазбанк</div>
+                    <div class="app-mask-title">Черника Онлайн</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/surgutneftegazbank.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="airpilot т-банк тинькофф tinkoff">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/tbank-air.webp" onerror="this.parentElement.textContent='AP'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Т-Банк</div>
+                    <div class="app-mask-title">AirPilot</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-Air.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="drive t т-банк тинькофф tinkoff">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/tbank-drive.webp" onerror="this.parentElement.textContent='DT'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Т-Банк</div>
+                    <div class="app-mask-title">Drive T</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-DriveT.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="8pro т-банк тинькофф tinkoff">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/tbank-8pro.webp" onerror="this.parentElement.textContent='8P'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Т-Банк</div>
+                    <div class="app-mask-title">8PRO</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-kichen.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="toast т-банк тинькофф tinkoff">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/tbank-toast.webp" onerror="this.parentElement.textContent='T'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Т-Банк</div>
+                    <div class="app-mask-title">Toast</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-Toast.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="yellowten т-банк тинькофф tinkoff">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/tbank-yellow.webp" onerror="this.parentElement.textContent='YT'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Т-Банк</div>
+                    <div class="app-mask-title">YellowTen</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-YellowTen.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="рубли убрир ubrir">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/ubrir.webp" onerror="this.parentElement.textContent='У'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/ubrir-mask.webp" onerror="this.parentElement.textContent='Р'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">УБРиР</div>
+                    <div class="app-mask-title">РУбли</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/ubrir.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="athleopro втб бизнес vtb">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/vtbbiz.webp" onerror="this.parentElement.textContent='В'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/vtbbiz-mask.webp" onerror="this.parentElement.textContent='AP'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">ВТБ Бизнес</div>
+                    <div class="app-mask-title">AthleoPro</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/vtb-business.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="сириус втб vtb">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/vtb.webp" onerror="this.parentElement.textContent='В'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/vtb-mask.webp" onerror="this.parentElement.textContent='С'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">ВТБ</div>
+                    <div class="app-mask-title">Сириус</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/vtb-sirius.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="cifra цифра банк фридом freedom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/cifra.webp" onerror="this.parentElement.textContent='Ц'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/cifra-mask.webp" onerror="this.parentElement.textContent='C'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Цифра Банк</div>
+                    <div class="app-mask-title">Cifra</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/cifra.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="юmoney yoomoney яндекс деньги">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/yoomoney.webp" onerror="this.parentElement.textContent='Ю'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/yoomoney-mask.webp" onerror="this.parentElement.textContent='Ю'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">ЮMoney</div>
+                    <div class="app-mask-title">ЮMoney</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YooMoney.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="savespot зенит zenit">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/zenit.webp" onerror="this.parentElement.textContent='З'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/zenit-spot.webp" onerror="this.parentElement.textContent='SS'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Банк Зенит</div>
+                    <div class="app-mask-title">SaveSpot</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/zenitbank-SaveSpot.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="timetotravel зенит zenit">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/zenit.webp" onerror="this.parentElement.textContent='З'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/zenit-travel.webp" onerror="this.parentElement.textContent='TT'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Банк Зенит</div>
+                    <div class="app-mask-title">TimeToTravel</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/zenitbank-TimeToTravel.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="bank" data-search="yapay яндекс пэй yandex">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/ypay.webp" onerror="this.parentElement.textContent='Я'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/ypay-mask.webp" onerror="this.parentElement.textContent='Я'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Яндекс Пэй</div>
+                    <div class="app-mask-title">Яндекс Пэй</div>
+                    <div class="badge">Банки</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/yapay.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <!-- ================= ДОСТАВКА ================= -->
         <div class="app-row" data-category="delivery" data-search="купер сбермаркет доставка еда">
             <div class="app-top">
                 <div class="icon-stack">
-                    <div class="icon-main">
-                        <img src="icons/kuper.webp" onerror="this.parentElement.textContent='К'" alt="Купер">
-                    </div>
-                    <div class="icon-badge">
-                        <img src="icons/kuper.webp" onerror="this.parentElement.textContent='К'" alt="Маскировка">
-                    </div>
+                    <div class="icon-main"><img src="icons/kuper.webp" onerror="this.parentElement.textContent='К'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/kuper-mask.webp" onerror="this.parentElement.textContent='К'" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
-                    <div class="app-title-wrap">
-                        <span class="app-title">Купер</span>
-                        <span class="app-mask-title">(СберМаркет)</span>
-                    </div>
-                    <div class="app-dev">ООО «Инстамарт Сервис»</div>
-                    <div class="badges-row">
-                        <span class="badge">🇷🇺 Россия</span>
-                        <span class="badge">Food & Drink</span>
-                    </div>
+                    <div class="app-title">Купер</div>
+                    <div class="app-mask-title">Купер</div>
+                    <div class="badge">Доставка</div>
                 </div>
             </div>
             <div class="app-bottom">
-                <div class="system-reqs">
-                    <span>ℹ️ Версия 17.0.518</span>
-                    <span>📱 iOS 15.0+</span>
-                </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/kuper.plist">
-                    ⬇ Скачать
-                </a>
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/kuper.plist">⬇ Установить</a>
             </div>
         </div>
 
-        <!-- Rutube (SlicingDices) -->
-        <div class="app-row" data-category="social" data-search="slicingdices rutube рутуб видео">
+        <div class="app-row" data-category="delivery" data-search="л доставка лента еда">
             <div class="app-top">
                 <div class="icon-stack">
-                    <div class="icon-main">
-                        <img src="icons/rutube.webp" onerror="this.parentElement.textContent='R'" alt="Rutube">
-                    </div>
-                    <div class="icon-badge">
-                        <img src="icons/rutube-slicing.webp" onerror="this.parentElement.textContent='SD'" alt="Маскировка">
-                    </div>
+                    <div class="icon-main"><img src="icons/lenta.webp" onerror="this.parentElement.textContent='Л'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/lenta-mask.webp" onerror="this.parentElement.textContent='Л'" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
-                    <div class="app-title-wrap">
-                        <span class="app-title">Rutube</span>
-                        <span class="app-mask-title">(SlicingDices)</span>
-                    </div>
-                    <div class="app-dev">ООО «Руформ»</div>
-                    <div class="badges-row">
-                        <span class="badge">🇷🇺 Россия</span>
-                        <span class="badge">Entertainment</span>
-                    </div>
+                    <div class="app-title">Лента</div>
+                    <div class="app-mask-title">Л.Доставка</div>
+                    <div class="badge">Доставка</div>
                 </div>
             </div>
             <div class="app-bottom">
-                <div class="system-reqs">
-                    <span>ℹ️ Версия 1.2.1</span>
-                    <span>📱 iOS 15.0+</span>
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/lenta.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <!-- ================= СОЦСЕТИ ================= -->
+        <div class="app-row" data-category="social" data-search="time тайм соцсеть">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/time.webp" onerror="this.parentElement.textContent='T'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/time-mask.webp" onerror="this.parentElement.textContent='T'" alt="Badge"></div>
                 </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-SlicingDices.plist">
-                    ⬇ Скачать
-                </a>
+                <div class="app-meta">
+                    <div class="app-title">TiMe</div>
+                    <div class="app-mask-title">TiMe</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/TiMe.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="syncer синсер time тайм соцсеть">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/time.webp" onerror="this.parentElement.textContent='T'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/syncer-mask.webp" onerror="this.parentElement.textContent='S'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">TiMe</div>
+                    <div class="app-mask-title">Syncer</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/Syncer.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="ok одноклассники соцсеть">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/ok.webp" onerror="this.parentElement.textContent='О'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/ok-mask.webp" onerror="this.parentElement.textContent='О'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Одноклассники</div>
+                    <div class="app-mask-title">OK</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/odnoklassniki.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="slicingdices rutube рутуб видео">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/rutube.webp" onerror="this.parentElement.textContent='R'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/rutube-slicing.webp" onerror="this.parentElement.textContent='SD'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Rutube</div>
+                    <div class="app-mask-title">SlicingDices</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-SlicingDices.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="spaceshipsbattle rutube рутуб видео">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/rutube.webp" onerror="this.parentElement.textContent='R'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/rutube-ships.webp" onerror="this.parentElement.textContent='SB'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Rutube</div>
+                    <div class="app-mask-title">SpaceshipsBattle</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-starship.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="vk вк вконтакте">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/vk.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/vk-mask.webp" onerror="this.parentElement.textContent='V'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">ВКонтакте</div>
+                    <div class="app-mask-title">VK</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VK.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="vk messenger вк мессенджер">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/vkmsg.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/vkmsg-mask.webp" onerror="this.parentElement.textContent='VM'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">VK Мессенджер</div>
+                    <div class="app-mask-title">VK Messenger</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKMessenger.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="vk music вк музыка">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/vkmusic.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/vkmusic-mask.webp" onerror="this.parentElement.textContent='VM'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">VK Музыка</div>
+                    <div class="app-mask-title">VK Music</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKMusic.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="social" data-search="vk video вк видео">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/vkvideo.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/vkvideo-mask.webp" onerror="this.parentElement.textContent='VV'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">VK Видео</div>
+                    <div class="app-mask-title">VK Video</div>
+                    <div class="badge">Соцсети</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKVideo.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <!-- ================= ПРОЧЕЕ ================= -->
+        <div class="app-row" data-category="other" data-search="2gis 2гис карта навигатор">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/2gis.webp" onerror="this.parentElement.textContent='2'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/2gis-mask.webp" onerror="this.parentElement.textContent='2'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Навигатор</div>
+                    <div class="app-mask-title">2GIS</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/2gis.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="проскорость дом ру провайдер dom">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/domru.webp" onerror="this.parentElement.textContent='Д'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/domru-mask.webp" onerror="this.parentElement.textContent='ПС'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Дом.ру</div>
+                    <div class="app-mask-title">ПроСкорость</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/domru.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="max макс">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/max.webp" onerror="this.parentElement.textContent='M'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/max-mask.webp" onerror="this.parentElement.textContent='M'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">МАКС</div>
+                    <div class="app-mask-title">MAX</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/max.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="digital detox сбермобайл связь sber">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sbermobile.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sbermobile-detox.webp" onerror="this.parentElement.textContent='DD'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберМобайл</div>
+                    <div class="app-mask-title">Digital Detox</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sbermobile-fokus.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="мобио сбермобайл связь sber">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/sbermobile.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/sbermobile-mobio.webp" onerror="this.parentElement.textContent='М'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">СберМобайл</div>
+                    <div class="app-mask-title">Мобио</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sbermobile-mobio.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="kakjit т-ж журнал тинькофф">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/tj.webp" onerror="this.parentElement.textContent='T'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/tj-mask.webp" onerror="this.parentElement.textContent='K'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">Т-Ж</div>
+                    <div class="app-mask-title">KakJit</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tj.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="yota йота связь">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/yota.webp" onerror="this.parentElement.textContent='Y'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/yota-mask.webp" onerror="this.parentElement.textContent='Y'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">YOTA</div>
+                    <div class="app-mask-title">YOTA</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YOTA.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="document list appbank каталог">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/appbank.webp" onerror="this.parentElement.textContent='A'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/appbank-doc.webp" onerror="this.parentElement.textContent='DL'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">AppBank</div>
+                    <div class="app-mask-title">Document List</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-DocumentList.plist">⬇ Установить</a>
+            </div>
+        </div>
+
+        <div class="app-row" data-category="other" data-search="moodpetal appbank каталог">
+            <div class="app-top">
+                <div class="icon-stack">
+                    <div class="icon-main"><img src="icons/appbank.webp" onerror="this.parentElement.textContent='A'" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons/appbank-mood.webp" onerror="this.parentElement.textContent='MP'" alt="Badge"></div>
+                </div>
+                <div class="app-meta">
+                    <div class="app-title">AppBank</div>
+                    <div class="app-mask-title">MoodPetal</div>
+                    <div class="badge">Прочее</div>
+                </div>
+            </div>
+            <div class="app-bottom">
+                <div class="system-reqs">📱 iOS 15.0+</div>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-moodpedal.plist">⬇ Установить</a>
             </div>
         </div>
 
     </div>
 
-    <!-- Плавающая нижняя панель (Floating Tab Bar) -->
+    <!-- Плавающая нижняя панель -->
     <div class="tabbar-wrap">
         <div class="tabbar">
             <button class="tab-btn active" data-filter="all">
