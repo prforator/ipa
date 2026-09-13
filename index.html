@@ -2,398 +2,273 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Установка iOS Приложений</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background-color: #f2f2f7; margin: 0; padding: 20px; text-align: center; }
-        input { width: 90%; max-width: 400px; padding: 12px; margin-bottom: 20px; border-radius: 10px; border: 1px solid #ccc; font-size: 16px; }
-        .grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; }
-        .app-card { background: #fff; border-radius: 16px; padding: 20px; width: 140px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .app-icon { width: 60px; height: 60px; background: #e5e5ea; border-radius: 14px; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: bold; color: #8e8e93; }
-        h2 { margin: 0 0 5px; font-size: 16px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        p { margin: 0 0 15px; font-size: 12px; color: #8e8e93; }
-        .install-btn { display: block; background: #007aff; color: #fff; text-decoration: none; padding: 10px; border-radius: 10px; font-weight: 600; font-size: 14px; }
+        :root {
+            --bg-color: #f2f2f7;
+            --card-bg: #ffffff;
+            --text-main: #000000;
+            --text-muted: #8e8e93;
+            --accent: #007aff;
+            --border-radius: 16px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+            color: var(--text-main);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .header-container {
+            position: sticky;
+            top: 0;
+            background: rgba(242, 242, 247, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 20px 20px 10px;
+            z-index: 100;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            margin: 0 0 15px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 12px;
+            border: none;
+            background: #e3e3e8;
+            font-size: 16px;
+            box-sizing: border-box;
+            outline: none;
+            transition: background 0.2s;
+        }
+        
+        .search-box:focus {
+            background: #d1d1d6;
+        }
+
+        .categories {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding: 10px 0;
+            scrollbar-width: none; /* Для Firefox */
+        }
+        .categories::-webkit-scrollbar {
+            display: none; /* Для Chrome/Safari */
+        }
+
+        .category-btn {
+            background: #e3e3e8;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-muted);
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .category-btn.active {
+            background: var(--text-main);
+            color: #fff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .app-card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.1s;
+        }
+
+        .app-card:active {
+            transform: scale(0.96);
+        }
+
+        /* Заглушка под иконку. Потом сюда добавишь <img> */
+        .app-icon {
+            width: 70px;
+            height: 70px;
+            background: #e5e5ea;
+            border-radius: 16px;
+            margin: 0 auto 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-muted);
+            overflow: hidden; /* Чтобы реальные картинки не вылезали за скругления */
+        }
+
+        .app-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        h2 {
+            margin: 0 0 2px;
+            font-size: 15px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .real-name {
+            margin: 0 0 5px;
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .version {
+            margin: 0 0 12px;
+            font-size: 11px;
+            color: #c7c7cc;
+        }
+
+        .install-btn {
+            margin-top: auto;
+            display: block;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* Утилита для скрытия элементов */
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
-    <h1>Каталог приложений</h1>
-    <input type="text" id="search" placeholder="Поиск приложения..." onkeyup="filterApps()">
+
+    <div class="header-container">
+        <h1>Приложения</h1>
+        <input type="text" id="searchInput" class="search-box" placeholder="Поиск (например, Т-Банк или AirPilot)..." onkeyup="filterApps()">
+        
+        <div class="categories" id="categoryFilters">
+            <button class="category-btn active" data-filter="all">Все</button>
+            <button class="category-btn" data-filter="bank">Банки</button>
+            <button class="category-btn" data-filter="delivery">Доставка</button>
+            <button class="category-btn" data-filter="social">Соцсети</button>
+            <button class="category-btn" data-filter="other">Прочее</button>
+        </div>
+    </div>
+
     <div class="grid" id="appsGrid">
         
-    <div class="app-card" data-name="2gis">
-        <div class="app-icon">2</div>
-        <h2>2GIS</h2>
-        <p>Версия: 7.25.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/2gis.plist">Установить</a>
+        <!-- Пример 1: Т-Банк -->
+        <div class="app-card" data-category="bank" data-search="airpilot т-банк тинькофф tinkoff">
+            <div class="app-icon">A</div>
+            <h2>AirPilot</h2>
+            <p class="real-name">Т-Банк</p>
+            <p class="version">Версия: 2.1.1</p>
+            <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-Air.plist">Установить</a>
+        </div>
+
+        <!-- Пример 2: Т-Банк (другая маскировка) -->
+        <div class="app-card" data-category="bank" data-search="drive t т-банк тинькофф tinkoff">
+            <div class="app-icon">D</div>
+            <h2>Drive T</h2>
+            <p class="real-name">Т-Банк</p>
+            <p class="version">Версия: 1.8.1</p>
+            <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-DriveT.plist">Установить</a>
+        </div>
+
+        <!-- Пример 3: Альфа-Банк -->
+        <div class="app-card" data-category="bank" data-search="все учтено альфа банк alfa">
+            <div class="app-icon">В</div>
+            <h2>Все Учтено</h2>
+            <p class="real-name">Альфа-Банк</p>
+            <p class="version">Версия: 1.2.7</p>
+            <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/akbarsbank.plist">Установить</a>
+        </div>
+
+        <!-- Пример 4: Доставка -->
+        <div class="app-card" data-category="delivery" data-search="купер сбермаркет доставка еда">
+            <div class="app-icon">К</div>
+            <h2>Купер</h2>
+            <p class="real-name">СберМаркет</p>
+            <p class="version">Версия: 17.0.518</p>
+            <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/kuper.plist">Установить</a>
+        </div>
+
+        <!-- Пример 5: Соцсети -->
+        <div class="app-card" data-category="social" data-search="vk вк вконтакте">
+            <div class="app-icon">V</div>
+            <h2>VK</h2>
+            <p class="real-name">ВКонтакте</p>
+            <p class="version">Версия: 8.183</p>
+            <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/VK.plist">Установить</a>
+        </div>
+
     </div>
-    <div class="app-card" data-name="все учтено">
-        <div class="app-icon">В</div>
-        <h2>Все Учтено</h2>
-        <p>Версия: 1.2.7</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/akbarsbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="умный попутчик">
-        <div class="app-icon">У</div>
-        <h2>Умный Попутчик</h2>
-        <p>Версия: 1.2.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabank-belarus.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="bizkey">
-        <div class="app-icon">B</div>
-        <h2>BizKey</h2>
-        <p>Версия: 1.9.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabusiness-belarus.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="holder">
-        <div class="app-icon">H</div>
-        <h2>Holder</h2>
-        <p>Версия: 1.2</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabank-holder.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="a-interior">
-        <div class="app-icon">A</div>
-        <h2>A-Interior</h2>
-        <p>Версия: 1.2</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabank-interior.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="advance">
-        <div class="app-icon">A</div>
-        <h2>Advance</h2>
-        <p>Версия: 1.2</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabank-upgrade.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="bizbalance">
-        <div class="app-icon">B</div>
-        <h2>BizBalance</h2>
-        <p>Версия: 1.2.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabusiness-kakyest.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="business ties">
-        <div class="app-icon">B</div>
-        <h2>Business Ties</h2>
-        <p>Версия: 1.2.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/alphabusiness-svyazi.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="document list">
-        <div class="app-icon">D</div>
-        <h2>Document List</h2>
-        <p>Версия: 1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/appbank-DocumentList.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="moodpetal">
-        <div class="app-icon">M</div>
-        <h2>MoodPetal</h2>
-        <p>Версия: 2.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/appbank-moodpedal.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="монт бланк">
-        <div class="app-icon">М</div>
-        <h2>Монт Бланк</h2>
-        <p>Версия: 1.139.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/blanc.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="home ключи">
-        <div class="app-icon">H</div>
-        <h2>Home Ключи</h2>
-        <p>Версия: 1.2.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/domrfbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="проскорость">
-        <div class="app-icon">П</div>
-        <h2>ПроСкорость</h2>
-        <p>Версия: 1.3.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/domru.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="цифровой сейф">
-        <div class="app-icon">Ц</div>
-        <h2>Цифровой сейф</h2>
-        <p>Версия: 6.1.3</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/gazprombank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="купер">
-        <div class="app-icon">К</div>
-        <h2>Купер</h2>
-        <p>Версия: 17.0.518</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/kuper.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="л.доставка">
-        <div class="app-icon">Л</div>
-        <h2>Л.Доставка</h2>
-        <p>Версия: 6.86.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/lenta.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="max">
-        <div class="app-icon">M</div>
-        <h2>MAX</h2>
-        <p>Версия: 26.17.3</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/max.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="авк гид">
-        <div class="app-icon">А</div>
-        <h2>АВК Гид</h2>
-        <p>Версия: 6.23.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/metallinvestbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="coffee mood">
-        <div class="app-icon">C</div>
-        <h2>Coffee Mood</h2>
-        <p>Версия: 1.19.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/modulebank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="lunarcode">
-        <div class="app-icon">L</div>
-        <h2>LunarCode</h2>
-        <p>Версия: 1.10.7</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/novikombank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="ok">
-        <div class="app-icon">O</div>
-        <h2>OK</h2>
-        <p>Версия: 11.63.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/odnoklassniki.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="чайная">
-        <div class="app-icon">Ч</div>
-        <h2>Чайная</h2>
-        <p>Версия: 1.6.3</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/psb.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="аут">
-        <div class="app-icon">А</div>
-        <h2>Аут</h2>
-        <p>Версия: 2.0.2</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/rocketbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="бычок каберне">
-        <div class="app-icon">Б</div>
-        <h2>Бычок Каберне</h2>
-        <p>Версия: 1.4</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/rosselhozbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="ritm">
-        <div class="app-icon">R</div>
-        <h2>Ritm</h2>
-        <p>Версия: 1.1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/russianstandartbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="slicingdices">
-        <div class="app-icon">S</div>
-        <h2>SlicingDices</h2>
-        <p>Версия: 1.2.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/rutube-SlicingDices.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="spaceshipsbattle">
-        <div class="app-icon">S</div>
-        <h2>SpaceshipsBattle</h2>
-        <p>Версия: 1.2.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/rutube-starship.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="online active">
-        <div class="app-icon">O</div>
-        <h2>Online Active</h2>
-        <p>Версия: 16.13.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sber-active.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="online family">
-        <div class="app-icon">O</div>
-        <h2>Online Family</h2>
-        <p>Версия: 17.6.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sber-family.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="online finance">
-        <div class="app-icon">O</div>
-        <h2>Online Finance</h2>
-        <p>Версия: 17.0.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sber-finance.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="al dente">
-        <div class="app-icon">A</div>
-        <h2>Al dente</h2>
-        <p>Версия: 4.00.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sberbusiness-aldente.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="smart quiz">
-        <div class="app-icon">S</div>
-        <h2>Smart Quiz</h2>
-        <p>Версия: 5.10.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sberkids-quiz.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="booktracker">
-        <div class="app-icon">B</div>
-        <h2>BookTracker</h2>
-        <p>Версия: 5.12.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sberkids-BookTracker.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="speakaboo">
-        <div class="app-icon">S</div>
-        <h2>SpeakaBoo</h2>
-        <p>Версия: 2.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sberkids-speakaboo.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="digital detox">
-        <div class="app-icon">D</div>
-        <h2>Digital Detox</h2>
-        <p>Версия: 1.0.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sbermobile-fokus.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="мобио">
-        <div class="app-icon">М</div>
-        <h2>Мобио</h2>
-        <p>Версия: 1.0.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sbermobile-mobio.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="grino">
-        <div class="app-icon">G</div>
-        <h2>Grino</h2>
-        <p>Версия: 1.1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sinara-bank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="финграм">
-        <div class="app-icon">Ф</div>
-        <h2>ФинГрам</h2>
-        <p>Версия: 1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sovkom-fingram.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="омп">
-        <div class="app-icon">О</div>
-        <h2>ОМП</h2>
-        <p>Версия: 1.0.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sovkom-omp.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="синоптик+">
-        <div class="app-icon">С</div>
-        <h2>Синоптик+</h2>
-        <p>Версия: 1.7.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sovkom-sinoptik.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="скб">
-        <div class="app-icon">С</div>
-        <h2>СКБ</h2>
-        <p>Версия: 1.0.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/sovkom-skb.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="черника онлайн">
-        <div class="app-icon">Ч</div>
-        <h2>Черника Онлайн</h2>
-        <p>Версия: 2.351.4</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/surgutneftegazbank.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="airpilot">
-        <div class="app-icon">A</div>
-        <h2>AirPilot</h2>
-        <p>Версия: 2.1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-Air.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="drive t">
-        <div class="app-icon">D</div>
-        <h2>Drive T</h2>
-        <p>Версия: 1.8.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-DriveT.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="8pro">
-        <div class="app-icon">8</div>
-        <h2>8PRO</h2>
-        <p>Версия: 3.1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-kichen.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="toast">
-        <div class="app-icon">T</div>
-        <h2>Toast</h2>
-        <p>Версия: 2.0.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-Toast.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="yellowten">
-        <div class="app-icon">Y</div>
-        <h2>YellowTen</h2>
-        <p>Версия: 3.5.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tbank-YellowTen.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="kakjit">
-        <div class="app-icon">K</div>
-        <h2>KakJit</h2>
-        <p>Версия: 5.1.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/tj.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="рубли">
-        <div class="app-icon">Р</div>
-        <h2>РУбли</h2>
-        <p>Версия: 5.18.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/ubrir.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="vk">
-        <div class="app-icon">V</div>
-        <h2>VK</h2>
-        <p>Версия: 8.183</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/VK.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="vk messenger">
-        <div class="app-icon">V</div>
-        <h2>VK Messenger</h2>
-        <p>Версия: 1.307</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/VKMessenger.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="vk music">
-        <div class="app-icon">V</div>
-        <h2>VK Music</h2>
-        <p>Версия: 8.30</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/VKMusic.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="vk video">
-        <div class="app-icon">V</div>
-        <h2>VK Video</h2>
-        <p>Версия: 8.183</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/VKVideo.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="athleopro">
-        <div class="app-icon">A</div>
-        <h2>AthleoPro</h2>
-        <p>Версия: 1.2601.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/vtb-business.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="сириус">
-        <div class="app-icon">С</div>
-        <h2>Сириус</h2>
-        <p>Версия: 2.0.1</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/vtb-sirius.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="юmoney">
-        <div class="app-icon">Ю</div>
-        <h2>ЮMoney</h2>
-        <p>Версия: 11.12.0</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/YooMoney.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="yota">
-        <div class="app-icon">Y</div>
-        <h2>YOTA</h2>
-        <p>Версия: 13.90</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/YOTA.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="savespot">
-        <div class="app-icon">S</div>
-        <h2>SaveSpot</h2>
-        <p>Версия: 3.0.4</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/zenitbank-SaveSpot.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="timetotravel">
-        <div class="app-icon">T</div>
-        <h2>TimeToTravel</h2>
-        <p>Версия: 3.0.3</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/zenitbank-TimeToTravel.plist">Установить</a>
-    </div>
-    <div class="app-card" data-name="yapay">
-        <div class="app-icon">Я</div>
-        <h2>Яндекс Пэй</h2>
-        <p>Версия: 0.234.4</p>
-        <a class="install-btn" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/yapay.plist">Установить</a>
-    </div>
-    </div>
+
     <script>
+        let currentFilter = 'all';
+
+        // Логика переключения табов категорий
+        document.querySelectorAll('.category-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Снимаем активность со всех кнопок
+                document.querySelectorAll('.category-btn').forEach(b => b.classList.remove('active'));
+                // Добавляем нажатой
+                e.target.classList.add('active');
+                
+                currentFilter = e.target.getAttribute('data-filter');
+                filterApps();
+            });
+        });
+
+        // Главная функция фильтрации (Категория + Поиск)
         function filterApps() {
-            let query = document.getElementById('search').value.toLowerCase();
-            let cards = document.getElementsByClassName('app-card');
-            for (let card of cards) {
-                card.style.display = card.getAttribute('data-name').includes(query) ? 'block' : 'none';
-            }
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const cards = document.querySelectorAll('.app-card');
+
+            cards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const searchData = card.getAttribute('data-search').toLowerCase();
+
+                // Проверяем совпадение по категории
+                const matchesCategory = (currentFilter === 'all') || (category === currentFilter);
+                // Проверяем совпадение по тексту
+                const matchesSearch = searchData.includes(query);
+
+                // Показываем только если совпадает и то, и другое
+                if (matchesCategory && matchesSearch) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
         }
     </script>
 </body>
