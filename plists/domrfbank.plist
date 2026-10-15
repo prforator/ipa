@@ -17,13 +17,13 @@
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>com.yuriynikitin.homekeys</string>
+                <string>online.roomtop.householdings</string>
                 <key>bundle-version</key>
-                <string>1.2.1</string>
+                <string>1.0.1</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>title</key>
-                <string>Home Ключи</string>
+                <string>Room Assist</string>
             </dict>
         </dict>
     </array>
