@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#07080e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -44,13 +44,6 @@
             position: relative;
             overflow-x: hidden;
         }
-
-        /* Скрытые радиокнопки для безотказной работы меню даже в превью без JS */
-        .tab-radio {
-            display: none;
-        }
-
-        /* Фоновое пространственное свечение (Spatial Mesh Orbs) */
         .ambient-glow {
             position: fixed;
             border-radius: 50%;
@@ -149,14 +142,6 @@
             gap: 11px;
         }
 
-        /* Фильтрация категорий на чистом CSS (дублируется JS для связки с поиском) */
-        #rad-bank:checked ~ .cards-list > [data-category]:not([data-category="bank"]),
-        #rad-shop:checked ~ .cards-list > [data-category]:not([data-category="shop"]),
-        #rad-social:checked ~ .cards-list > [data-category]:not([data-category="social"]),
-        #rad-other:checked ~ .cards-list > [data-category]:not([data-category="other"]) {
-            display: none !important;
-        }
-
         .app-row {
             background: var(--glass-bg);
             backdrop-filter: blur(22px) saturate(180%);
@@ -171,8 +156,6 @@
             box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), inset 0 1px 0 var(--glass-highlight);
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
         }
-
-        /* Карточка с подбородком (Активация) */
         .app-card {
             background: var(--glass-bg);
             backdrop-filter: blur(22px) saturate(180%);
@@ -336,8 +319,6 @@
             transform: scale(0.95);
             filter: brightness(0.92);
         }
-
-        /* ИСПРАВЛЕННАЯ ПЛАВАЮЩАЯ НИЖНЯЯ ПАНЕЛЬ (Строго в пределах экрана) */
         .tabbar-wrap {
             position: fixed;
             bottom: max(14px, env(safe-area-inset-bottom));
@@ -391,8 +372,6 @@
             fill: currentColor;
             flex-shrink: 0;
         }
-
-        /* Подпись скрыта у неактивных вкладок и плавно появляется только у активной — экономит ~180px ширины! */
         .tab-label {
             display: none;
             font-size: 13px;
@@ -400,31 +379,16 @@
             white-space: nowrap;
             letter-spacing: -0.2px;
         }
-
-        /* Активная вкладка (через класс .active или через CSS :checked) */
-        .tab-btn.active,
-        #rad-all:checked ~ .tabbar-wrap label[for="rad-all"],
-        #rad-bank:checked ~ .tabbar-wrap label[for="rad-bank"],
-        #rad-shop:checked ~ .tabbar-wrap label[for="rad-shop"],
-        #rad-social:checked ~ .tabbar-wrap label[for="rad-social"],
-        #rad-other:checked ~ .tabbar-wrap label[for="rad-other"] {
+        .tab-btn.active {
             background: rgba(56, 189, 248, 0.18);
             border: 1px solid rgba(56, 189, 248, 0.35);
             color: #ffffff;
             padding: 0 14px;
             box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
         }
-
-        .tab-btn.active .tab-label,
-        #rad-all:checked ~ .tabbar-wrap label[for="rad-all"] .tab-label,
-        #rad-bank:checked ~ .tabbar-wrap label[for="rad-bank"] .tab-label,
-        #rad-shop:checked ~ .tabbar-wrap label[for="rad-shop"] .tab-label,
-        #rad-social:checked ~ .tabbar-wrap label[for="rad-social"] .tab-label,
-        #rad-other:checked ~ .tabbar-wrap label[for="rad-other"] .tab-label {
+        .tab-btn.active .tab-label {
             display: inline;
         }
-
-        /* На очень узких экранах (<340px) оставляем только иконки */
         @media (max-width: 340px) {
             .tab-label {
                 display: none !important;
@@ -441,12 +405,6 @@
     </style>
 </head>
 <body>
-    <!-- Радиокнопки для CSS-переключения вкладок (работает даже если JS отключен в превью) -->
-    <input type="radio" name="tab-filter" id="rad-all" class="tab-radio" checked>
-    <input type="radio" name="tab-filter" id="rad-bank" class="tab-radio">
-    <input type="radio" name="tab-filter" id="rad-shop" class="tab-radio">
-    <input type="radio" name="tab-filter" id="rad-social" class="tab-radio">
-    <input type="radio" name="tab-filter" id="rad-other" class="tab-radio">
 
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
@@ -456,17 +414,16 @@
         <h1>Каталог</h1>
         <div class="search-wrap">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Поиск приложения..." onkeyup="filterApps()" oninput="filterApps()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Поиск приложения...">
         </div>
     </div>
 
     <div class="cards-list" id="appsContainer">
-<!-- ================= БАНКИ (36 шт.) ================= -->
         <div class="app-row" data-category="bank" data-search="все учтено ак барс банк ak bars">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/akbarsbank.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/akbarsbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='ВУ'}; this.src='icons_masked/akbarsbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/akbarsbank.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/akbarsbank.webp" data-fallback="ВУ" data-fallback-src="icons_masked/akbarsbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Ак Барс Банк</div>
@@ -480,8 +437,8 @@
         <div class="app-row" data-category="bank" data-search="умный попутчик альфа банк беларусь alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa-by.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-belarus.webp" onerror="this.onerror=function(){this.parentElement.textContent='УП'}; this.src='icons_masked/alphabank-belarus.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa-by.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-belarus.webp" data-fallback="УП" data-fallback-src="icons_masked/alphabank-belarus.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк (BY)</div>
@@ -495,8 +452,8 @@
         <div class="app-row" data-category="bank" data-search="bizkey альфа бизнес беларусь alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfabusiness-by.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabusiness-belarus.webp" onerror="this.onerror=function(){this.parentElement.textContent='BK'}; this.src='icons_masked/alphabusiness-belarus.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfabusiness-by.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabusiness-belarus.webp" data-fallback="BK" data-fallback-src="icons_masked/alphabusiness-belarus.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Бизнес (BY)</div>
@@ -510,8 +467,8 @@
         <div class="app-row" data-category="bank" data-search="holder альфа банк alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-holder.webp" onerror="this.onerror=function(){this.parentElement.textContent='HO'}; this.src='icons_masked/alphabank-holder.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-holder.webp" data-fallback="HO" data-fallback-src="icons_masked/alphabank-holder.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк</div>
@@ -525,8 +482,8 @@
         <div class="app-row" data-category="bank" data-search="a-interior альфа банк alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-interior.webp" onerror="this.onerror=function(){this.parentElement.textContent='AI'}; this.src='icons_masked/alphabank-interior.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-interior.webp" data-fallback="AI" data-fallback-src="icons_masked/alphabank-interior.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк</div>
@@ -540,8 +497,8 @@
         <div class="app-row" data-category="bank" data-search="advance альфа банк alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-upgrade.webp" onerror="this.onerror=function(){this.parentElement.textContent='AD'}; this.src='icons_masked/alphabank-upgrade.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-upgrade.webp" data-fallback="AD" data-fallback-src="icons_masked/alphabank-upgrade.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк</div>
@@ -555,8 +512,8 @@
         <div class="app-row" data-category="bank" data-search="bizbalance альфа бизнес alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabusiness-kakyest.webp" onerror="this.onerror=function(){this.parentElement.textContent='BB'}; this.src='icons_masked/alphabusiness-kakyest.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabusiness-kakyest.webp" data-fallback="BB" data-fallback-src="icons_masked/alphabusiness-kakyest.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Бизнес</div>
@@ -570,8 +527,8 @@
         <div class="app-row" data-category="bank" data-search="business ties альфа бизнес alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabusiness-svyazi.webp" onerror="this.onerror=function(){this.parentElement.textContent='BT'}; this.src='icons_masked/alphabusiness-svyazi.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabusiness-svyazi.webp" data-fallback="BT" data-fallback-src="icons_masked/alphabusiness-svyazi.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Бизнес</div>
@@ -585,8 +542,8 @@
         <div class="app-row" data-category="bank" data-search="монт бланк бланк банк blanc">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/blanc.webp" onerror="this.parentElement.textContent='Б'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/blanc.webp" onerror="this.onerror=function(){this.parentElement.textContent='МБ'}; this.src='icons_masked/blanc.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/blanc.webp" data-fallback="Б" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/blanc.webp" data-fallback="МБ" data-fallback-src="icons_masked/blanc.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Бланк банк</div>
@@ -601,8 +558,8 @@
             <div class="app-row">
                 <div class="app-left">
                     <div class="icon-stack">
-                        <div class="icon-main"><img src="icons_original/tochka.webp" onerror="this.parentElement.textContent='Н'" alt="Icon"></div>
-                        <div class="icon-badge"><img src="icons_masked/tochka-Breathio.webp" onerror="this.onerror=function(){this.parentElement.textContent='LC'}; this.src='icons_masked/tochka-Breathio.png';" alt="Badge"></div>
+                        <div class="icon-main"><img src="icons_original/tochka.webp" data-fallback="Н" alt="Icon"></div>
+                        <div class="icon-badge"><img src="icons_masked/tochka-Breathio.webp" data-fallback="LC" data-fallback-src="icons_masked/tochka-Breathio.png" alt="Badge"></div>
                     </div>
                     <div class="app-meta">
                         <div class="app-title">Точка Банк</div>
@@ -621,8 +578,8 @@
         <div class="app-row" data-category="bank" data-search="home room assist дом рф dom.rf">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/domrf-bank.webp" onerror="this.parentElement.textContent='Д'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/domrfbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='HK'}; this.src='icons_masked/domrfbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/domrf-bank.webp" data-fallback="Д" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/domrfbank.webp" data-fallback="HK" data-fallback-src="icons_masked/domrfbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк ДОМ.РФ</div>
@@ -636,8 +593,8 @@
         <div class="app-row" data-category="bank" data-search="цифровой сейф газпромбанк gazprom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/gazprombank.webp" onerror="this.parentElement.textContent='Г'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/gazprombank.webp" onerror="this.onerror=function(){this.parentElement.textContent='ЦС'}; this.src='icons_masked/gazprombank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/gazprombank.webp" data-fallback="Г" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/gazprombank.webp" data-fallback="ЦС" data-fallback-src="icons_masked/gazprombank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Газпромбанк</div>
@@ -651,8 +608,8 @@
         <div class="app-row" data-category="bank" data-search="авк гид металлинвестбанк">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/metallinvestbank.webp" onerror="this.parentElement.textContent='М'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/metallinvestbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='АГ'}; this.src='icons_masked/metallinvestbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/metallinvestbank.webp" data-fallback="М" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/metallinvestbank.webp" data-fallback="АГ" data-fallback-src="icons_masked/metallinvestbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Металлинвестбанк</div>
@@ -666,8 +623,8 @@
         <div class="app-row" data-category="bank" data-search="coffee mood модульбанк">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/modulbank.webp" onerror="this.parentElement.textContent='М'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/modulebank.webp" onerror="this.onerror=function(){this.parentElement.textContent='CM'}; this.src='icons_masked/modulebank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/modulbank.webp" data-fallback="М" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/modulebank.webp" data-fallback="CM" data-fallback-src="icons_masked/modulebank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Модульбанк</div>
@@ -682,8 +639,8 @@
             <div class="app-row">
                 <div class="app-left">
                     <div class="icon-stack">
-                        <div class="icon-main"><img src="icons_original/novikombank.webp" onerror="this.parentElement.textContent='Н'" alt="Icon"></div>
-                        <div class="icon-badge"><img src="icons_masked/novikombank.webp" onerror="this.onerror=function(){this.parentElement.textContent='LC'}; this.src='icons_masked/novikombank.png';" alt="Badge"></div>
+                        <div class="icon-main"><img src="icons_original/novikombank.webp" data-fallback="Н" alt="Icon"></div>
+                        <div class="icon-badge"><img src="icons_masked/novikombank.webp" data-fallback="LC" data-fallback-src="icons_masked/novikombank.png" alt="Badge"></div>
                     </div>
                     <div class="app-meta">
                         <div class="app-title">Новикомбанк</div>
@@ -702,8 +659,8 @@
         <div class="app-row" data-category="bank" data-search="чайная псб промсвязьбанк psb">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/psb.webp" onerror="this.parentElement.textContent='П'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/psb.webp" onerror="this.onerror=function(){this.parentElement.textContent='Ч'}; this.src='icons_masked/psb.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/psb.webp" data-fallback="П" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/psb.webp" data-fallback="Ч" data-fallback-src="icons_masked/psb.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ПСБ</div>
@@ -717,8 +674,8 @@
         <div class="app-row" data-category="bank" data-search="блум рокетбанк rocket">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rocketbank.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rocketbank-bloom.webp" onerror="this.onerror=function(){this.parentElement.textContent='А'}; this.src='icons_masked/rocketbank-bloom.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rocketbank.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/rocketbank-bloom.webp" data-fallback="А" data-fallback-src="icons_masked/rocketbank-bloom.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Рокетбанк</div>
@@ -732,8 +689,8 @@
         <div class="app-row" data-category="bank" data-search="аут рокетбанк rocket">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rocketbank.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rocketbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='А'}; this.src='icons_masked/rocketbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rocketbank.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/rocketbank.webp" data-fallback="А" data-fallback-src="icons_masked/rocketbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Рокетбанк</div>
@@ -747,8 +704,8 @@
         <div class="app-row" data-category="bank" data-search="любовь и гуси россельхозбанк рсхб">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rosselhozbank.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rshb_gusi.webp" onerror="this.onerror=function(){this.parentElement.textContent='БК'}; this.src='icons_masked/rshb_gusi.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rosselhozbank.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/rshb_gusi.webp" data-fallback="БК" data-fallback-src="icons_masked/rshb_gusi.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Россельхозбанк</div>
@@ -762,8 +719,8 @@
         <div class="app-row" data-category="bank" data-search="бычок каберне россельхозбанк рсхб">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rosselhozbank.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rosselhozbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='БК'}; this.src='icons_masked/rosselhozbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rosselhozbank.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/rosselhozbank.webp" data-fallback="БК" data-fallback-src="icons_masked/rosselhozbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Россельхозбанк</div>
@@ -777,8 +734,8 @@
         <div class="app-row" data-category="bank" data-search="тракторный клуб россельхозбанк рсхб бизнес Свой Мобайл">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rshbb.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rshbb_traktor.webp" onerror="this.onerror=function(){this.parentElement.textContent='БК'}; this.src='icons_masked/rshbb_traktor.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rshbb.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/rshbb_traktor.webp" data-fallback="БК" data-fallback-src="icons_masked/rshbb_traktor.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Свой Бизнес Мобайл</div>
@@ -792,8 +749,8 @@
         <div class="app-row" data-category="bank" data-search="своё жильё свое жилье россельхозбанк рсхб идеальный дом">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/svoezhilye.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/svoezhilye.webp" onerror="this.onerror=function(){this.parentElement.textContent='БК'}; this.src='icons_masked/svoezhilye.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/svoezhilye.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/svoezhilye.webp" data-fallback="БК" data-fallback-src="icons_masked/svoezhilye.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Своё Жильё</div>
@@ -807,8 +764,8 @@
         <div class="app-row" data-category="bank" data-search="ritm русский стандарт">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/russianstandartbank.webp" onerror="this.parentElement.textContent='Р'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/russianstandartbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='R'}; this.src='icons_masked/russianstandartbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/russianstandartbank.webp" data-fallback="Р" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/russianstandartbank.webp" data-fallback="R" data-fallback-src="icons_masked/russianstandartbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Русский Стандарт</div>
@@ -822,8 +779,8 @@
         <div class="app-row" data-category="bank" data-search="online active сбер сбербанк sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sber-active.webp" onerror="this.onerror=function(){this.parentElement.textContent='OA'}; this.src='icons_masked/sber-active.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sber-active.webp" data-fallback="OA" data-fallback-src="icons_masked/sber-active.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБанк</div>
@@ -837,8 +794,8 @@
         <div class="app-row" data-category="bank" data-search="online family сбер сбербанк sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sber-family.webp" onerror="this.onerror=function(){this.parentElement.textContent='OF'}; this.src='icons_masked/sber-family.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sber-family.webp" data-fallback="OF" data-fallback-src="icons_masked/sber-family.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБанк</div>
@@ -852,8 +809,8 @@
         <div class="app-row" data-category="bank" data-search="online finance сбер сбербанк sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sber-finance.webp" onerror="this.onerror=function(){this.parentElement.textContent='OF'}; this.src='icons_masked/sber-finance.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sber-finance.webp" data-fallback="OF" data-fallback-src="icons_masked/sber-finance.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБанк</div>
@@ -867,8 +824,8 @@
         <div class="app-row" data-category="bank" data-search="solar сияние сберинвестиции sberinvest">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberinvest.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/solar-sberinvest.webp" onerror="this.onerror=function(){this.parentElement.textContent='OA'}; this.src='icons_masked/solar-sberinvest.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberinvest.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/solar-sberinvest.webp" data-fallback="OA" data-fallback-src="icons_masked/solar-sberinvest.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберИнвестиции</div>
@@ -882,8 +839,8 @@
         <div class="app-row" data-category="bank" data-search="al dente сбербизнес sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbusiness.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberbusiness-aldente.webp" onerror="this.onerror=function(){this.parentElement.textContent='AD'}; this.src='icons_masked/sberbusiness-aldente.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbusiness.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberbusiness-aldente.webp" data-fallback="AD" data-fallback-src="icons_masked/sberbusiness-aldente.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБизнес</div>
@@ -897,8 +854,8 @@
         <div class="app-row" data-category="bank" data-search="smart quiz сберкидс sber sberkids">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberkids.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberkids-quiz.webp" onerror="this.onerror=function(){this.parentElement.textContent='SQ'}; this.src='icons_masked/sberkids-quiz.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberkids.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberkids-quiz.webp" data-fallback="SQ" data-fallback-src="icons_masked/sberkids-quiz.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберKids</div>
@@ -912,8 +869,8 @@
         <div class="app-row" data-category="bank" data-search="booktracker сберкидс sber sberkids">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberkids.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberkids-BookTracker.webp" onerror="this.onerror=function(){this.parentElement.textContent='BT'}; this.src='icons_masked/sberkids-BookTracker.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberkids.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberkids-BookTracker.webp" data-fallback="BT" data-fallback-src="icons_masked/sberkids-BookTracker.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберKids</div>
@@ -927,8 +884,8 @@
         <div class="app-row" data-category="bank" data-search="speakaboo сберкидс sber sberkids">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberkids.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberkids-speakaboo.webp" onerror="this.onerror=function(){this.parentElement.textContent='SB'}; this.src='icons_masked/sberkids-speakaboo.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberkids.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberkids-speakaboo.webp" data-fallback="SB" data-fallback-src="icons_masked/sberkids-speakaboo.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберKids</div>
@@ -942,8 +899,8 @@
         <div class="app-row" data-category="bank" data-search="grino банк синара sinara">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sinara.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sinara-bank.webp" onerror="this.onerror=function(){this.parentElement.textContent='G'}; this.src='icons_masked/sinara-bank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sinara.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sinara-bank.webp" data-fallback="G" data-fallback-src="icons_masked/sinara-bank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк Синара</div>
@@ -957,8 +914,8 @@
         <div class="app-row" data-category="bank" data-search="SCB notes совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/skb-SCBNotes.webp" onerror="this.onerror=function(){this.parentElement.textContent='ФГ'}; this.src='icons_masked/sovkom-fingram.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/skb-SCBNotes.webp" data-fallback="ФГ" data-fallback-src="icons_masked/sovkom-fingram.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -972,8 +929,8 @@
         <div class="app-row" data-category="bank" data-search="финграм совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sovkom-fingram.webp" onerror="this.onerror=function(){this.parentElement.textContent='ФГ'}; this.src='icons_masked/sovkom-fingram.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sovkom-fingram.webp" data-fallback="ФГ" data-fallback-src="icons_masked/sovkom-fingram.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -987,8 +944,8 @@
         <div class="app-row" data-category="bank" data-search="омп совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sovkom-omp.webp" onerror="this.onerror=function(){this.parentElement.textContent='О'}; this.src='icons_masked/sovkom-omp.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sovkom-omp.webp" data-fallback="О" data-fallback-src="icons_masked/sovkom-omp.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -1002,8 +959,8 @@
         <div class="app-row" data-category="bank" data-search="синоптик+ совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sovkom-sinoptik.webp" onerror="this.onerror=function(){this.parentElement.textContent='С+'}; this.src='icons_masked/sovkom-sinoptik.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sovkom-sinoptik.webp" data-fallback="С+" data-fallback-src="icons_masked/sovkom-sinoptik.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -1017,8 +974,8 @@
         <div class="app-row" data-category="bank" data-search="скб совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sovkom-skb.webp" onerror="this.onerror=function(){this.parentElement.textContent='С'}; this.src='icons_masked/sovkom-skb.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sovkom-skb.webp" data-fallback="С" data-fallback-src="icons_masked/sovkom-skb.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -1032,8 +989,8 @@
         <div class="app-row" data-category="bank" data-search="черника онлайн сургутнефтегазбанк">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sngb.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/surgutneftegazbank.webp" onerror="this.onerror=function(){this.parentElement.textContent='ЧО'}; this.src='icons_masked/surgutneftegazbank.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sngb.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/surgutneftegazbank.webp" data-fallback="ЧО" data-fallback-src="icons_masked/surgutneftegazbank.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Сургутнефтегазбанк</div>
@@ -1047,8 +1004,8 @@
         <div class="app-row" data-category="bank" data-search="SpotT Spotluma т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-spotluma.webp" onerror="this.onerror=function(){this.parentElement.textContent='AP'}; this.src='icons_masked/tbank-spotluma.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-spotluma.webp" data-fallback="AP" data-fallback-src="icons_masked/tbank-spotluma.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1062,8 +1019,8 @@
         <div class="app-row" data-category="bank" data-search="CraftT craftersy т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-CraftT.webp" onerror="this.onerror=function(){this.parentElement.textContent='AP'}; this.src='icons_masked/tbank-CraftT.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-CraftT.webp" data-fallback="AP" data-fallback-src="icons_masked/tbank-CraftT.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1077,8 +1034,8 @@
         <div class="app-row" data-category="bank" data-search="airpilot т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-Air.webp" onerror="this.onerror=function(){this.parentElement.textContent='AP'}; this.src='icons_masked/tbank-Air.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-Air.webp" data-fallback="AP" data-fallback-src="icons_masked/tbank-Air.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1092,8 +1049,8 @@
         <div class="app-row" data-category="bank" data-search="drive t т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-DriveT.webp" onerror="this.onerror=function(){this.parentElement.textContent='DT'}; this.src='icons_masked/tbank-DriveT.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-DriveT.webp" data-fallback="DT" data-fallback-src="icons_masked/tbank-DriveT.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1107,8 +1064,8 @@
         <div class="app-row" data-category="bank" data-search="8pro т-банк тинькофф tinkoff kitchen">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-kichen.webp" onerror="this.onerror=function(){this.parentElement.textContent='8P'}; this.src='icons_masked/tbank-kichen.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-kichen.webp" data-fallback="8P" data-fallback-src="icons_masked/tbank-kichen.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1122,8 +1079,8 @@
         <div class="app-row" data-category="bank" data-search="toast т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-Toast.webp" onerror="this.onerror=function(){this.parentElement.textContent='T'}; this.src='icons_masked/tbank-Toast.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-Toast.webp" data-fallback="T" data-fallback-src="icons_masked/tbank-Toast.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1137,8 +1094,8 @@
         <div class="app-row" data-category="bank" data-search="yellowten т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" onerror="this.parentElement.textContent='Т'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-YellowTen.webp" onerror="this.onerror=function(){this.parentElement.textContent='YT'}; this.src='icons_masked/tbank-YellowTen.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-YellowTen.webp" data-fallback="YT" data-fallback-src="icons_masked/tbank-YellowTen.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -1152,8 +1109,8 @@
         <div class="app-row" data-category="bank" data-search="рубли убрир ubrir">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/ubrir.webp" onerror="this.parentElement.textContent='У'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/ubrir.webp" onerror="this.onerror=function(){this.parentElement.textContent='Р'}; this.src='icons_masked/ubrir.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/ubrir.webp" data-fallback="У" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/ubrir.webp" data-fallback="Р" data-fallback-src="icons_masked/ubrir.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">УБРиР</div>
@@ -1167,8 +1124,8 @@
         <div class="app-row" data-category="bank" data-search="athleopro втб бизнес vtb">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/vtb-business.webp" onerror="this.parentElement.textContent='В'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/vtb-business.webp" onerror="this.onerror=function(){this.parentElement.textContent='AP'}; this.src='icons_masked/vtb-business.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/vtb-business.webp" data-fallback="В" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/vtb-business.webp" data-fallback="AP" data-fallback-src="icons_masked/vtb-business.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ВТБ Бизнес</div>
@@ -1182,8 +1139,8 @@
         <div class="app-row" data-category="bank" data-search="сириус втб vtb">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/vtb.webp" onerror="this.parentElement.textContent='В'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/vtb-sirius.webp" onerror="this.onerror=function(){this.parentElement.textContent='С'}; this.src='icons_masked/vtb-sirius.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/vtb.webp" data-fallback="В" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/vtb-sirius.webp" data-fallback="С" data-fallback-src="icons_masked/vtb-sirius.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ВТБ</div>
@@ -1197,7 +1154,7 @@
         <div class="app-row" data-category="bank" data-search="cifra цифра банк фридом freedom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/cifra.webp" onerror="this.parentElement.textContent='Ц'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/cifra.webp" data-fallback="Ц" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Цифра Банк</div>
@@ -1210,7 +1167,7 @@
         <div class="app-row" data-category="bank" data-search="юmoney yoomoney яндекс деньги">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/YooMoney.webp" onerror="this.parentElement.textContent='Ю'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/YooMoney.webp" data-fallback="Ю" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ЮMoney</div>
@@ -1223,8 +1180,8 @@
         <div class="app-row" data-category="bank" data-search="savespot зенит zenit">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/zenit.webp" onerror="this.parentElement.textContent='З'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/zenitbank-SaveSpot.webp" onerror="this.onerror=function(){this.parentElement.textContent='SS'}; this.src='icons_masked/zenitbank-SaveSpot.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/zenit.webp" data-fallback="З" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/zenitbank-SaveSpot.webp" data-fallback="SS" data-fallback-src="icons_masked/zenitbank-SaveSpot.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк Зенит</div>
@@ -1238,8 +1195,8 @@
         <div class="app-row" data-category="bank" data-search="timetotravel зенит zenit">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/zenit.webp" onerror="this.parentElement.textContent='З'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/zenitbank-TimeToTravel.webp" onerror="this.onerror=function(){this.parentElement.textContent='TT'}; this.src='icons_masked/zenitbank-TimeToTravel.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/zenit.webp" data-fallback="З" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/zenitbank-TimeToTravel.webp" data-fallback="TT" data-fallback-src="icons_masked/zenitbank-TimeToTravel.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк Зенит</div>
@@ -1253,7 +1210,7 @@
         <div class="app-row" data-category="bank" data-search="yapay яндекс пэй yandex">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/yapay.webp" onerror="this.parentElement.textContent='Я'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/yapay.webp" data-fallback="Я" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Яндекс Пэй</div>
@@ -1262,13 +1219,11 @@
             </div>
             <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/yapay.plist">⬇ Установить</a>
         </div>
-
-        <!-- ================= МАГАЗИНЫ (5 шт.) ================= -->
         <div class="app-row" data-category="shop" data-search="авито patrol kit patrolkit объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/avito_patrolkit.webp" onerror="this.onerror=function(){this.parentElement.textContent='AN'}; this.src='icons_masked/avito_patrolkit.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/avito_patrolkit.webp" data-fallback="AN" data-fallback-src="icons_masked/avito_patrolkit.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1282,8 +1237,8 @@
         <div class="app-row" data-category="shop" data-search="авито anero онлайн помощник объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/Anero.webp" onerror="this.onerror=function(){this.parentElement.textContent='AN'}; this.src='icons_masked/Anero.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/Anero.webp" data-fallback="AN" data-fallback-src="icons_masked/Anero.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1297,8 +1252,8 @@
         <div class="app-row" data-category="shop" data-search="авито au ау.ру объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/Au-224.0.webp" onerror="this.onerror=function(){this.parentElement.textContent='AU'}; this.src='icons_masked/Au-224.0.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/Au-224.0.webp" data-fallback="AU" data-fallback-src="icons_masked/Au-224.0.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1312,7 +1267,7 @@
         <div class="app-row" data-category="shop" data-search="авито 200.5 объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1325,7 +1280,7 @@
         <div class="app-row" data-category="shop" data-search="youla юла">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/youla.webp" onerror="this.parentElement.textContent='А'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/youla.webp" data-fallback="А" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Юла</div>
@@ -1338,8 +1293,8 @@
         <div class="app-row" data-category="shop" data-search="купер сбермаркет доставка еда магазины">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/kuper.webp" onerror="this.parentElement.textContent='К'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/kuper.webp" onerror="this.onerror=function(){this.parentElement.textContent='К'}; this.src='icons_masked/kuper.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/kuper.webp" data-fallback="К" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/kuper.webp" data-fallback="К" data-fallback-src="icons_masked/kuper.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Купер</div>
@@ -1353,8 +1308,8 @@
         <div class="app-row" data-category="shop" data-search="л доставка лента еда магазины">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/lenta.webp" onerror="this.parentElement.textContent='Л'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/lenta.webp" onerror="this.onerror=function(){this.parentElement.textContent='Л'}; this.src='icons_masked/lenta.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/lenta.webp" data-fallback="Л" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/lenta.webp" data-fallback="Л" data-fallback-src="icons_masked/lenta.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Лента</div>
@@ -1364,12 +1319,10 @@
             </div>
             <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/lenta.plist">⬇ Установить</a>
         </div>
-
-        <!-- ================= СОЦСЕТИ (10 шт.) ================= -->
         <div class="app-row" data-category="social" data-search="max макс соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/max.webp" onerror="this.parentElement.textContent='M'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/max.webp" data-fallback="M" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">MAX</div>
@@ -1382,7 +1335,7 @@
         <div class="app-row" data-category="social" data-search="time тайм соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/time.webp" onerror="this.parentElement.textContent='T'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/time.webp" data-fallback="T" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">TiMe</div>
@@ -1395,8 +1348,8 @@
         <div class="app-row" data-category="social" data-search="syncer синсер time тайм соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/time.webp" onerror="this.parentElement.textContent='T'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/Syncer.webp" onerror="this.onerror=function(){this.parentElement.textContent='S'}; this.src='icons_masked/Syncer.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/time.webp" data-fallback="T" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/Syncer.webp" data-fallback="S" data-fallback-src="icons_masked/Syncer.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">TiMe</div>
@@ -1410,7 +1363,7 @@
         <div class="app-row" data-category="social" data-search="ok одноклассники соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/ok.webp" onerror="this.parentElement.textContent='О'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/ok.webp" data-fallback="О" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Одноклассники</div>
@@ -1424,8 +1377,8 @@
             <div class="app-row">
                 <div class="app-left">
                     <div class="icon-stack">
-                        <div class="icon-main"><img src="icons_original/rutube.webp" onerror="this.parentElement.textContent='R'" alt="Icon"></div>
-                        <div class="icon-badge"><img src="icons_masked/rutube-SlicingDices.webp" onerror="this.onerror=function(){this.parentElement.textContent='SD'}; this.src='icons_masked/rutube-SlicingDices.png';" alt="Badge"></div>
+                        <div class="icon-main"><img src="icons_original/rutube.webp" data-fallback="R" alt="Icon"></div>
+                        <div class="icon-badge"><img src="icons_masked/rutube-SlicingDices.webp" data-fallback="SD" data-fallback-src="icons_masked/rutube-SlicingDices.png" alt="Badge"></div>
                     </div>
                     <div class="app-meta">
                         <div class="app-title">Rutube</div>
@@ -1444,8 +1397,8 @@
         <div class="app-row" data-category="social" data-search="spaceshipsbattle rutube рутуб видео">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rutube.webp" onerror="this.parentElement.textContent='R'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rutube-starship.webp" onerror="this.onerror=function(){this.parentElement.textContent='SB'}; this.src='icons_masked/rutube-starship.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rutube.webp" data-fallback="R" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/rutube-starship.webp" data-fallback="SB" data-fallback-src="icons_masked/rutube-starship.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Rutube</div>
@@ -1459,8 +1412,8 @@
         <div class="app-row" data-category="social" data-search="rstudio rutube рутуб видео студия">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rstudio.webp" onerror="this.parentElement.textContent='R'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/RStudio.webp" onerror="this.onerror=function(){this.parentElement.textContent='SB'}; this.src='icons_masked/RStudio.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rstudio.webp" data-fallback="R" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/RStudio.webp" data-fallback="SB" data-fallback-src="icons_masked/RStudio.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">RStudio</div>
@@ -1474,7 +1427,7 @@
         <div class="app-row" data-category="social" data-search="vk вк вконтакте">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VK.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VK.webp" data-fallback="V" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ВКонтакте</div>
@@ -1487,7 +1440,7 @@
         <div class="app-row" data-category="social" data-search="vk messenger вк мессенджер">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VKMessenger.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VKMessenger.webp" data-fallback="V" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">VK Мессенджер</div>
@@ -1500,7 +1453,7 @@
         <div class="app-row" data-category="social" data-search="vk music вк музыка">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VKMusic.webp" onerror="this.parentElement.textContent='V'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VKMusic.webp" data-fallback="V" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">VK Музыка</div>
@@ -1513,7 +1466,7 @@
         <div class="app-row" data-category="social" data-search="vk video вк видео">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VKVideo.webp" onerror="this.parentElement.textContent='VV'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VKVideo.webp" data-fallback="VV" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">VK Видео</div>
@@ -1526,7 +1479,7 @@
         <div class="app-row" data-category="social" data-search="окко okko">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/okko.webp" onerror="this.parentElement.textContent='VV'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/okko.webp" data-fallback="VV" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Okko</div>
@@ -1535,12 +1488,10 @@
             </div>
             <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/okko.plist">⬇ Установить</a>
         </div>
-
-        <!-- ================= ПРОЧЕЕ (7 шт.) ================= -->
         <div class="app-row" data-category="other" data-search="2gis 2гис карта навигатор">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/2gis.webp" onerror="this.parentElement.textContent='2'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/2gis.webp" data-fallback="2" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">2ГИС</div>
@@ -1553,8 +1504,8 @@
         <div class="app-row" data-category="other" data-search="проскорость дом ру провайдер dom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/domru.webp" onerror="this.parentElement.textContent='Д'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/domru.webp" onerror="this.onerror=function(){this.parentElement.textContent='ПС'}; this.src='icons_masked/domru.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/domru.webp" data-fallback="Д" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/domru.webp" data-fallback="ПС" data-fallback-src="icons_masked/domru.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Дом.ру</div>
@@ -1568,8 +1519,8 @@
         <div class="app-row" data-category="other" data-search="digital detox сбермобайл связь sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sbermobile.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sbermobile-fokus.webp" onerror="this.onerror=function(){this.parentElement.textContent='DD'}; this.src='icons_masked/sbermobile-fokus.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sbermobile.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sbermobile-fokus.webp" data-fallback="DD" data-fallback-src="icons_masked/sbermobile-fokus.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберМобайл</div>
@@ -1583,8 +1534,8 @@
         <div class="app-row" data-category="other" data-search="мобио сбермобайл связь sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sbermobile.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sbermobile-mobio.webp" onerror="this.onerror=function(){this.parentElement.textContent='М'}; this.src='icons_masked/sbermobile-mobio.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sbermobile.webp" data-fallback="С" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/sbermobile-mobio.webp" data-fallback="М" data-fallback-src="icons_masked/sbermobile-mobio.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберМобайл</div>
@@ -1598,8 +1549,8 @@
         <div class="app-row" data-category="other" data-search="kakjit т-ж журнал тинькофф">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tj.webp" onerror="this.parentElement.textContent='T'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tj.webp" onerror="this.onerror=function(){this.parentElement.textContent='K'}; this.src='icons_masked/tj.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tj.webp" data-fallback="T" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/tj.webp" data-fallback="K" data-fallback-src="icons_masked/tj.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Ж</div>
@@ -1613,7 +1564,7 @@
         <div class="app-row" data-category="other" data-search="yota йота связь">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/yota.webp" onerror="this.parentElement.textContent='Y'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/yota.webp" data-fallback="Y" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">YOTA</div>
@@ -1626,8 +1577,8 @@
         <div class="app-row" data-category="other" data-search="yota йота связь atoy">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/yota.webp" onerror="this.parentElement.textContent='Y'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/YOTA-Atoy.webp" onerror="this.onerror=function(){this.parentElement.textContent='Y'}; this.src='icons_masked/YOTA-Atoy.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/yota.webp" data-fallback="Y" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/YOTA-Atoy.webp" data-fallback="Y" data-fallback-src="icons_masked/YOTA-Atoy.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">YOTA</div>
@@ -1641,8 +1592,8 @@
         <div class="app-row" data-category="other" data-search="document list appbank каталог">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/appbank.webp" onerror="this.parentElement.textContent='A'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/appbank-DocumentList.webp" onerror="this.onerror=function(){this.parentElement.textContent='DL'}; this.src='icons_masked/appbank-DocumentList.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/appbank.webp" data-fallback="A" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/appbank-DocumentList.webp" data-fallback="DL" data-fallback-src="icons_masked/appbank-DocumentList.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">AppBank</div>
@@ -1656,8 +1607,8 @@
         <div class="app-row" data-category="other" data-search="moodpetal appbank каталог">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/appbank.webp" onerror="this.parentElement.textContent='A'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/appbank-moodpetal.webp" onerror="this.onerror=function(){this.parentElement.textContent='MP'}; this.src='icons_masked/appbank-moodpedal.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/appbank.webp" data-fallback="A" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/appbank-moodpetal.webp" data-fallback="MP" data-fallback-src="icons_masked/appbank-moodpedal.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">AppBank</div>
@@ -1671,8 +1622,8 @@
         <div class="app-row" data-category="other" data-search="газпромнефть бак бонус">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/gazpromneft.webp" onerror="this.parentElement.textContent='Г'" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/gazpromneft.webp" onerror="this.onerror=function(){this.parentElement.textContent='ЦС'}; this.src='icons_masked/gazpromneft.png';" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/gazpromneft.webp" data-fallback="Г" alt="Icon"></div>
+                    <div class="icon-badge"><img src="icons_masked/gazpromneft.webp" data-fallback="ЦС" data-fallback-src="icons_masked/gazpromneft.png" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Газпромнефть</div>
@@ -1686,7 +1637,7 @@
         <div class="app-row" data-category="other" data-search="incy">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/incy.webp" onerror="this.parentElement.textContent='Г'" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/incy.webp" data-fallback="Г" alt="Icon"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">INCY</div>
@@ -1696,69 +1647,70 @@
             <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/incy.plist">⬇ Установить</a>
         </div>
     </div>
-
-    <!-- Компактная плавающая нижняя панель (Подпись раскрывается только у активной вкладки, не выходит за экран) -->
     <div class="tabbar-wrap">
         <div class="tabbar">
-            <!-- Все -->
-            <label for="rad-all" class="tab-btn active" data-filter="all" title="Все">
+            <button type="button" class="tab-btn active" data-filter="all" title="Все">
                 <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
                 <span class="tab-label">Все</span>
-            </label>
-            <!-- Банки -->
-            <label for="rad-bank" class="tab-btn" data-filter="bank" title="Банки">
+            </button>
+            <button type="button" class="tab-btn" data-filter="bank" title="Банки">
                 <svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6.5 0v7h3v-7h-3zM2 22h20v-3H2v3zm15-12v7h3v-7h-3zm-5-9L2 6v2h20V6l-10-5z"/></svg>
                 <span class="tab-label">Банки</span>
-            </label>
-            <!-- Магазины -->
-            <label for="rad-shop" class="tab-btn" data-filter="shop" title="Магазины">
+            </button>
+            <button type="button" class="tab-btn" data-filter="shop" title="Магазины">
                 <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3H7c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"/></svg>
                 <span class="tab-label">Магазины</span>
-            </label>
-            <!-- Соцсети -->
-            <label for="rad-social" class="tab-btn" data-filter="social" title="Соцсети">
+            </button>
+            <button type="button" class="tab-btn" data-filter="social" title="Соцсети">
                 <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                 <span class="tab-label">Соцсети</span>
-            </label>
-            <!-- Прочее -->
-            <label for="rad-other" class="tab-btn" data-filter="other" title="Прочее">
+            </button>
+            <button type="button" class="tab-btn" data-filter="other" title="Прочее">
                 <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 <span class="tab-label">Прочее</span>
-            </label>
+            </button>
         </div>
     </div>
 
     <script>
         let currentFilter = 'all';
 
-        document.querySelectorAll('.tab-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-                const target = e.currentTarget;
-                target.classList.add('active');
-                currentFilter = target.getAttribute('data-filter');
-                filterApps();
+        const searchInput = document.getElementById('searchInput');
+        const cards = document.querySelectorAll('#appsContainer > .app-row, #appsContainer > .app-card');
+        const tabs = document.querySelectorAll('.tab-btn');
+
+        document.querySelectorAll('img[data-fallback]').forEach(img => {
+            img.addEventListener('error', () => {
+                if (img.dataset.fallbackSrc && !img.dataset.fallbackTried) {
+                    img.dataset.fallbackTried = '1';
+                    img.src = img.dataset.fallbackSrc;
+                } else {
+                    img.parentElement.textContent = img.dataset.fallback;
+                }
             });
         });
 
         function filterApps() {
-            const query = document.getElementById('searchInput').value.toLowerCase();
-            const cards = document.querySelectorAll('#appsContainer > .app-row, #appsContainer > .app-card');
+            const query = searchInput.value.trim().toLowerCase();
 
             cards.forEach(card => {
-                const category = card.getAttribute('data-category');
-                const searchData = (card.getAttribute('data-search') || '').toLowerCase();
-
-                const matchesCategory = (currentFilter === 'all') || (category === currentFilter);
-                const matchesSearch = searchData.includes(query);
-
-                if (matchesCategory && matchesSearch) {
-                    card.classList.remove('hidden');
-                } else {
-                    card.classList.add('hidden');
-                }
+                const category = card.dataset.category;
+                const searchData = (card.dataset.search || '').toLowerCase();
+                const matchesCategory = currentFilter === 'all' || category === currentFilter;
+                card.classList.toggle('hidden', !(matchesCategory && searchData.includes(query)));
             });
         }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(item => item.classList.remove('active'));
+                tab.classList.add('active');
+                currentFilter = tab.dataset.filter;
+                filterApps();
+            });
+        });
+
+        searchInput.addEventListener('input', filterApps);
     </script>
 </body>
 </html>
