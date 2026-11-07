@@ -140,7 +140,6 @@
             box-shadow: 0 0 18px rgba(56, 189, 248, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.25);
         }
 
-        /* Прячем нативные украшения поиска — у нас своя кнопка очистки */
         .search-input::-webkit-search-cancel-button,
         .search-input::-webkit-search-decoration {
             -webkit-appearance: none;
@@ -714,7 +713,6 @@
             }[ch]));
         }
 
-        // Оставляем только безопасные символы для имён файлов; запрещаем `..`
         function sanitizeId(s) {
             return String(s || '')
                 .replace(/[^a-zA-Z0-9_.-]/g, '')
@@ -806,7 +804,6 @@
                 card.innerHTML = rowHtml;
             }
 
-            // Мягкий fallback: если иконка битая — скрываем её, остаётся подложка
             card.querySelectorAll('img').forEach(img => {
                 const hide = () => { img.style.visibility = 'hidden'; };
                 if (img.complete) {
@@ -863,9 +860,6 @@
             });
         });
 
-        // rAF-throttle: обновляем не чаще раза за кадр (~16мс).
-        // Для каталога в десятки элементов этого более чем достаточно,
-        // а debounce с задержкой сделал бы фильтрацию «вязкой».
         let searchRaf = 0;
         searchInput.addEventListener('input', () => {
             updateClearButton();
@@ -887,7 +881,6 @@
             filterApps();
         });
 
-        // Стартовая отрисовка — фиксируем начальное состояние явно
         updateClearButton();
         filterApps();
     </script>
