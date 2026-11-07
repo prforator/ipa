@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#090a10">
+    <meta name="theme-color" content="#07080e">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="icon" type="image/png" href="/ipa/icon.png">
     <link rel="apple-touch-icon" href="/ipa/icon.png">
-    <title>Каталог приложений — Spatial Glass</title>
+    <title>Каталог приложений</title>
+
     <style>
         :root {
-            --bg-deep: #090a10;
-            --glass-bg: rgba(22, 24, 38, 0.55);
+            --bg-deep: #07080e;
+            --glass-bg: rgba(24, 27, 42, 0.58);
             --glass-border: rgba(255, 255, 255, 0.12);
             --glass-highlight: rgba(255, 255, 255, 0.22);
             --text-main: #f8fafc;
@@ -38,52 +39,57 @@
             color: var(--text-main);
             font-family: var(--font-family);
             min-height: 100dvh;
-            padding: max(24px, env(safe-area-inset-top)) 16px calc(90px + env(safe-area-inset-bottom));
+            padding: max(20px, env(safe-area-inset-top)) 16px calc(92px + env(safe-area-inset-bottom));
             -webkit-font-smoothing: antialiased;
             position: relative;
             overflow-x: hidden;
         }
 
-        /* Ambient glowing background orbs */
+        /* Скрытые радиокнопки для безотказной работы меню даже в превью без JS */
+        .tab-radio {
+            display: none;
+        }
+
+        /* Фоновое пространственное свечение (Spatial Mesh Orbs) */
         .ambient-glow {
             position: fixed;
             border-radius: 50%;
-            filter: blur(90px);
+            filter: blur(85px);
             opacity: 0.45;
             pointer-events: none;
             z-index: 0;
         }
         .glow-1 {
-            width: 320px;
-            height: 320px;
-            top: -60px;
-            left: -80px;
+            width: 300px;
+            height: 300px;
+            top: -50px;
+            left: -70px;
             background: radial-gradient(circle, #3b82f6 0%, rgba(59, 130, 246, 0) 70%);
         }
         .glow-2 {
-            width: 350px;
-            height: 350px;
+            width: 340px;
+            height: 340px;
             top: 35%;
-            right: -100px;
+            right: -90px;
             background: radial-gradient(circle, #8b5cf6 0%, rgba(139, 92, 246, 0) 70%);
         }
         .glow-3 {
-            width: 300px;
-            height: 300px;
-            bottom: 50px;
-            left: -60px;
+            width: 280px;
+            height: 280px;
+            bottom: 40px;
+            left: -50px;
             background: radial-gradient(circle, #06b6d4 0%, rgba(6, 182, 212, 0) 70%);
         }
 
         .header {
             position: relative;
             z-index: 1;
-            max-width: 520px;
-            margin: 0 auto 20px;
+            max-width: 500px;
+            margin: 0 auto 18px;
         }
 
         .header h1 {
-            font-size: 30px;
+            font-size: 28px;
             font-weight: 800;
             letter-spacing: -0.6px;
             margin-bottom: 14px;
@@ -100,13 +106,13 @@
 
         .search-input {
             width: 100%;
-            height: 48px;
+            height: 46px;
             background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid var(--glass-border);
             border-radius: 16px;
-            padding: 0 16px 0 44px;
+            padding: 0 16px 0 42px;
             font-size: 15px;
             color: #fff;
             outline: none;
@@ -114,14 +120,18 @@
             box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 8px 24px rgba(0, 0, 0, 0.25);
         }
 
+        .search-input::placeholder {
+            color: var(--text-sub);
+        }
+
         .search-input:focus {
             border-color: var(--accent-glow);
-            box-shadow: 0 0 18px rgba(56, 189, 248, 0.3), inset 0 1px 1px rgba(255, 255, 255, 0.25);
+            box-shadow: 0 0 18px rgba(56, 189, 248, 0.28), inset 0 1px 1px rgba(255, 255, 255, 0.25);
         }
 
         .search-icon {
             position: absolute;
-            left: 16px;
+            left: 15px;
             top: 50%;
             transform: translateY(-50%);
             color: var(--text-dim);
@@ -132,42 +142,47 @@
         .cards-list {
             position: relative;
             z-index: 1;
-            max-width: 520px;
+            max-width: 500px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 11px;
+        }
+
+        /* Фильтрация категорий на чистом CSS (дублируется JS для связки с поиском) */
+        #rad-bank:checked ~ .cards-list > [data-category]:not([data-category="bank"]),
+        #rad-shop:checked ~ .cards-list > [data-category]:not([data-category="shop"]),
+        #rad-social:checked ~ .cards-list > [data-category]:not([data-category="social"]),
+        #rad-other:checked ~ .cards-list > [data-category]:not([data-category="other"]) {
+            display: none !important;
         }
 
         .app-row {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(22px) saturate(180%);
+            -webkit-backdrop-filter: blur(22px) saturate(180%);
             border: 1px solid var(--glass-border);
             border-radius: 22px;
-            padding: 13px 15px;
+            padding: 12px 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), inset 0 1px 0 var(--glass-highlight);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), inset 0 1px 0 var(--glass-highlight);
             transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s;
         }
 
-        .app-row:active {
-            transform: scale(0.985);
-        }
-
+        /* Карточка с подбородком (Активация) */
         .app-card {
             background: var(--glass-bg);
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            backdrop-filter: blur(22px) saturate(180%);
+            -webkit-backdrop-filter: blur(22px) saturate(180%);
             border: 1px solid var(--glass-border);
             border-radius: 22px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28), inset 0 1px 0 var(--glass-highlight);
+            box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28), inset 0 1px 0 var(--glass-highlight);
         }
 
         .app-card .app-row {
@@ -180,7 +195,7 @@
         }
 
         .app-footer {
-            padding: 0 15px 13px;
+            padding: 0 14px 12px;
             margin-top: -2px;
         }
 
@@ -189,16 +204,16 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            height: 40px;
+            height: 38px;
             font-size: 13px;
             font-weight: 600;
             letter-spacing: 0.2px;
             color: #38bdf8;
             background: rgba(56, 189, 248, 0.12);
             border: 1px solid rgba(56, 189, 248, 0.25);
-            border-radius: 14px;
+            border-radius: 13px;
             text-decoration: none;
-            transition: all 0.2s ease;
+            transition: background 0.15s, transform 0.1s;
         }
 
         .btn-activate:active {
@@ -209,7 +224,7 @@
         .app-left {
             display: flex;
             align-items: center;
-            gap: 13px;
+            gap: 12px;
             min-width: 0;
             flex: 1;
         }
@@ -225,7 +240,7 @@
             width: 56px;
             height: 56px;
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             align-items: center;
@@ -234,10 +249,11 @@
             font-weight: 700;
             color: #94a3b8;
             overflow: hidden;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
         }
 
-        .icon-main img {
+        .icon-main img,
+        .icon-badge img {
             width: 100%;
             height: 100%;
             object-fit: cover;
@@ -251,7 +267,7 @@
             height: 25px;
             border-radius: 8px;
             background: #1e293b;
-            border: 2px solid rgba(15, 23, 42, 0.95);
+            border: 2px solid #111522;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -259,13 +275,7 @@
             font-weight: 700;
             color: #fff;
             overflow: hidden;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.6);
-        }
-
-        .icon-badge img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
         }
 
         .app-meta {
@@ -302,36 +312,38 @@
             font-weight: 500;
             padding: 2px 8px;
             border-radius: 7px;
-            margin-top: 3px;
+            margin-top: 2px;
         }
 
         .btn-download {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+            border: 1px solid rgba(255, 255, 255, 0.22);
             color: #fff;
             font-size: 13px;
             font-weight: 700;
             text-decoration: none;
-            padding: 9px 15px;
-            border-radius: 20px;
+            padding: 8px 14px;
+            border-radius: 18px;
             flex-shrink: 0;
             display: inline-flex;
             align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
-            transition: all 0.2s ease;
+            gap: 4px;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
+            transition: transform 0.12s ease, filter 0.15s ease;
         }
 
         .btn-download:active {
-            transform: scale(0.94);
-            filter: brightness(1.1);
+            transform: scale(0.95);
+            filter: brightness(0.92);
         }
 
+        /* ИСПРАВЛЕННАЯ ПЛАВАЮЩАЯ НИЖНЯЯ ПАНЕЛЬ (Строго в пределах экрана) */
         .tabbar-wrap {
             position: fixed;
-            bottom: max(16px, env(safe-area-inset-bottom));
+            bottom: max(14px, env(safe-area-inset-bottom));
             left: 0;
             right: 0;
+            padding: 0 12px;
             display: flex;
             justify-content: center;
             z-index: 999;
@@ -340,55 +352,102 @@
 
         .tabbar {
             pointer-events: auto;
-            background: rgba(15, 23, 42, 0.65);
+            width: auto;
+            max-width: calc(100vw - 24px);
+            background: rgba(18, 22, 36, 0.72);
             backdrop-filter: blur(28px) saturate(190%);
             -webkit-backdrop-filter: blur(28px) saturate(190%);
             border: 1px solid rgba(255, 255, 255, 0.16);
-            border-radius: 34px;
-            padding: 6px 10px;
+            border-radius: 32px;
+            padding: 5px 6px;
             display: flex;
             align-items: center;
-            gap: 8px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+            justify-content: center;
+            gap: 4px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255, 255, 255, 0.25);
         }
 
         .tab-btn {
             background: transparent;
             border: none;
             color: #94a3b8;
-            padding: 6px 12px;
-            height: 42px;
+            height: 40px;
+            min-width: 42px;
+            padding: 0 10px;
             border-radius: 22px;
             cursor: pointer;
-            display: flex;
+            display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 6px;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            flex-shrink: 1;
         }
 
         .tab-btn svg {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
+            flex-shrink: 0;
         }
 
+        /* Подпись скрыта у неактивных вкладок и плавно появляется только у активной — экономит ~180px ширины! */
         .tab-label {
-            font-size: 12px;
+            display: none;
+            font-size: 13px;
             font-weight: 600;
+            white-space: nowrap;
+            letter-spacing: -0.2px;
         }
 
-        .tab-btn.active {
-            background: rgba(255, 255, 255, 0.16);
+        /* Активная вкладка (через класс .active или через CSS :checked) */
+        .tab-btn.active,
+        #rad-all:checked ~ .tabbar-wrap label[for="rad-all"],
+        #rad-bank:checked ~ .tabbar-wrap label[for="rad-bank"],
+        #rad-shop:checked ~ .tabbar-wrap label[for="rad-shop"],
+        #rad-social:checked ~ .tabbar-wrap label[for="rad-social"],
+        #rad-other:checked ~ .tabbar-wrap label[for="rad-other"] {
+            background: rgba(56, 189, 248, 0.18);
+            border: 1px solid rgba(56, 189, 248, 0.35);
             color: #ffffff;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+            padding: 0 14px;
+            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .tab-btn.active .tab-label,
+        #rad-all:checked ~ .tabbar-wrap label[for="rad-all"] .tab-label,
+        #rad-bank:checked ~ .tabbar-wrap label[for="rad-bank"] .tab-label,
+        #rad-shop:checked ~ .tabbar-wrap label[for="rad-shop"] .tab-label,
+        #rad-social:checked ~ .tabbar-wrap label[for="rad-social"] .tab-label,
+        #rad-other:checked ~ .tabbar-wrap label[for="rad-other"] .tab-label {
+            display: inline;
+        }
+
+        /* На очень узких экранах (<340px) оставляем только иконки */
+        @media (max-width: 340px) {
+            .tab-label {
+                display: none !important;
+            }
+            .tab-btn {
+                padding: 0 8px !important;
+                min-width: 38px;
+            }
         }
 
         .hidden {
             display: none !important;
         }
-</style>
+    </style>
 </head>
 <body>
+    <!-- Радиокнопки для CSS-переключения вкладок (работает даже если JS отключен в превью) -->
+    <input type="radio" name="tab-filter" id="rad-all" class="tab-radio" checked>
+    <input type="radio" name="tab-filter" id="rad-bank" class="tab-radio">
+    <input type="radio" name="tab-filter" id="rad-shop" class="tab-radio">
+    <input type="radio" name="tab-filter" id="rad-social" class="tab-radio">
+    <input type="radio" name="tab-filter" id="rad-other" class="tab-radio">
+
     <div class="ambient-glow glow-1"></div>
     <div class="ambient-glow glow-2"></div>
     <div class="ambient-glow glow-3"></div>
@@ -397,12 +456,12 @@
         <h1>Каталог</h1>
         <div class="search-wrap">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" class="search-input" placeholder="Поиск приложения..." onkeyup="filterApps()">
+            <input type="text" id="searchInput" class="search-input" placeholder="Поиск приложения..." onkeyup="filterApps()" oninput="filterApps()">
         </div>
     </div>
 
     <div class="cards-list" id="appsContainer">
-        <!-- ================= БАНКИ (36 шт.) ================= -->
+<!-- ================= БАНКИ (36 шт.) ================= -->
         <div class="app-row" data-category="bank" data-search="все учтено ак барс банк ak bars">
             <div class="app-left">
                 <div class="icon-stack">
@@ -823,7 +882,7 @@
         <div class="app-row" data-category="bank" data-search="al dente сбербизнес sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbusiness.webp" onerror="this.parentElement.textContent='AD'}; this.src='icons_masked/sberbusiness-aldente.png';" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/sberbusiness.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
                     <div class="icon-badge"><img src="icons_masked/sberbusiness-aldente.webp" onerror="this.onerror=function(){this.parentElement.textContent='AD'}; this.src='icons_masked/sberbusiness-aldente.png';" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
@@ -943,7 +1002,7 @@
         <div class="app-row" data-category="bank" data-search="синоптик+ совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С+'}; this.src='icons_masked/sovkom-sinoptik.png';" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
                     <div class="icon-badge"><img src="icons_masked/sovkom-sinoptik.webp" onerror="this.onerror=function(){this.parentElement.textContent='С+'}; this.src='icons_masked/sovkom-sinoptik.png';" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
@@ -958,7 +1017,7 @@
         <div class="app-row" data-category="bank" data-search="скб совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'}; this.src='icons_masked/sovkom-skb.png';" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" onerror="this.parentElement.textContent='С'" alt="Icon"></div>
                     <div class="icon-badge"><img src="icons_masked/sovkom-skb.webp" onerror="this.onerror=function(){this.parentElement.textContent='С'}; this.src='icons_masked/sovkom-skb.png';" alt="Badge"></div>
                 </div>
                 <div class="app-meta">
@@ -1609,7 +1668,7 @@
             <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-moodpedal.plist">⬇ Установить</a>
         </div>
 
-        <div class="app-row" data-category="bank" data-search="газпромнефть бак бонус">
+        <div class="app-row" data-category="other" data-search="газпромнефть бак бонус">
             <div class="app-left">
                 <div class="icon-stack">
                     <div class="icon-main"><img src="icons_original/gazpromneft.webp" onerror="this.parentElement.textContent='Г'" alt="Icon"></div>
@@ -1624,7 +1683,7 @@
             <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/gazpromneft.plist">⬇ Установить</a>
         </div>
 
-        <div class="app-row" data-category="bank" data-search="incy">
+        <div class="app-row" data-category="other" data-search="incy">
             <div class="app-left">
                 <div class="icon-stack">
                     <div class="icon-main"><img src="icons_original/incy.webp" onerror="this.parentElement.textContent='Г'" alt="Icon"></div>
@@ -1638,34 +1697,34 @@
         </div>
     </div>
 
-    <!-- Компактная плавающая нижняя панель (только иконки) -->
+    <!-- Компактная плавающая нижняя панель (Подпись раскрывается только у активной вкладки, не выходит за экран) -->
     <div class="tabbar-wrap">
         <div class="tabbar">
             <!-- Все -->
-            <button class="tab-btn active" data-filter="all" title="Все">
+            <label for="rad-all" class="tab-btn active" data-filter="all" title="Все">
                 <svg viewBox="0 0 24 24"><path d="M4 4h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 10h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4zM4 16h4v4H4zm6 0h4v4h-4zm6 0h4v4h-4z"/></svg>
                 <span class="tab-label">Все</span>
-            </button>
+            </label>
             <!-- Банки -->
-            <button class="tab-btn" data-filter="bank" title="Банки">
-                <svg viewBox="0 0 24 24"><path d="M11.5 1L2 6v2h19V6m-17 4v7h3v-7m4 0v7h3v-7m4 0v7h3v-7M2 19v3h19v-3z"/></svg>
+            <label for="rad-bank" class="tab-btn" data-filter="bank" title="Банки">
+                <svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6.5 0v7h3v-7h-3zM2 22h20v-3H2v3zm15-12v7h3v-7h-3zm-5-9L2 6v2h20V6l-10-5z"/></svg>
                 <span class="tab-label">Банки</span>
-            </button>
+            </label>
             <!-- Магазины -->
-            <button class="tab-btn" data-filter="shop" title="Магазины">
+            <label for="rad-shop" class="tab-btn" data-filter="shop" title="Магазины">
                 <svg viewBox="0 0 24 24"><path d="M19 6h-2c0-2.76-2.24-5-5-5S7 3.24 7 6H5c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm-7-3c1.66 0 3 1.34 3 3H9c0-1.66 1.34-3 3-3zm7 17H5V8h14v12zm-7-8c-1.66 0-3-1.34-3-3H7c0 2.76 2.24 5 5 5s5-2.24 5-5h-2c0 1.66-1.34 3-3 3z"/></svg>
                 <span class="tab-label">Магазины</span>
-            </button>
+            </label>
             <!-- Соцсети -->
-            <button class="tab-btn" data-filter="social" title="Соцсети">
+            <label for="rad-social" class="tab-btn" data-filter="social" title="Соцсети">
                 <svg viewBox="0 0 24 24"><path d="M16 11c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm-8 0c1.66 0 3-1.34 3-3S9.66 5 8 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
                 <span class="tab-label">Соцсети</span>
-            </button>
+            </label>
             <!-- Прочее -->
-            <button class="tab-btn" data-filter="other" title="Прочее">
+            <label for="rad-other" class="tab-btn" data-filter="other" title="Прочее">
                 <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
                 <span class="tab-label">Прочее</span>
-            </button>
+            </label>
         </div>
     </div>
 
@@ -1701,6 +1760,5 @@
             });
         }
     </script>
-
 </body>
 </html>
