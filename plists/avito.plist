@@ -11,19 +11,19 @@
 					<key>kind</key>
 					<string>software-package</string>
 					<key>url</key>
-					<string>https://github.com/prforator/ipa/releases/download/time/Syncer.ipa</string>
+					<string>https://github.com/prforator/ipa/releases/download/avito/avito.ipa</string>
 				</dict>
 			</array>
 			<key>metadata</key>
 			<dict>
 				<key>bundle-identifier</key>
-				<string>com.corp.messenger.syncer</string>
+				<string>ru.avito.app</string>
 				<key>bundle-version</key>
-				<string>2.5</string>
+				<string>200.5</string>
 				<key>kind</key>
 				<string>software</string>
 				<key>title</key>
-				<string>Syncer</string>
+				<string>Авито</string>
 			</dict>
 		</dict>
 	</array>
