@@ -106,10 +106,10 @@
             border: 1px solid var(--glass-border);
             border-radius: 16px;
             padding: 0 16px 0 42px;
-            font-size: 15px;
+            font-size: 16px;
             color: #fff;
             outline: none;
-            transition: all 0.25s ease;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease;
             box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 8px 24px rgba(0, 0, 0, 0.25);
         }
 
@@ -124,11 +124,12 @@
 
         .search-icon {
             position: absolute;
-            left: 15px;
+            left: 14px;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-dim);
-            font-size: 16px;
+            width: 18px;
+            height: 18px;
+            fill: var(--text-dim);
             pointer-events: none;
         }
 
@@ -225,12 +226,6 @@
             border-radius: 14px;
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: 700;
-            color: #94a3b8;
             overflow: hidden;
             box-shadow: 0 6px 14px rgba(0, 0, 0, 0.3);
         }
@@ -240,6 +235,7 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            display: block;
         }
 
         .icon-badge {
@@ -251,12 +247,6 @@
             border-radius: 8px;
             background: #1e293b;
             border: 2px solid #111522;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: 700;
-            color: #fff;
             overflow: hidden;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.6);
         }
@@ -299,25 +289,25 @@
         }
 
         .btn-download {
-            background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
-            border: 1px solid rgba(255, 255, 255, 0.22);
-            color: #fff;
-            font-size: 13px;
+            background-color: #1c1c1e;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #0a84ff;
+            font-size: 14px;
             font-weight: 700;
+            letter-spacing: -0.2px;
             text-decoration: none;
-            padding: 8px 14px;
-            border-radius: 18px;
+            padding: 7px 16px;
+            border-radius: 999px;
             flex-shrink: 0;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
-            box-shadow: 0 4px 14px rgba(14, 165, 233, 0.35);
-            transition: transform 0.12s ease, filter 0.15s ease;
+            justify-content: center;
+            transition: transform 0.12s ease, background-color 0.15s ease;
         }
 
         .btn-download:active {
             transform: scale(0.95);
-            filter: brightness(0.92);
+            background-color: #2c2c2e;
         }
         .tabbar-wrap {
             position: fixed;
@@ -413,7 +403,7 @@
     <div class="header">
         <h1>Каталог</h1>
         <div class="search-wrap">
-            <span class="search-icon">🔍</span>
+            <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0016 9.5 6.5 6.5 0 109.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
             <input type="text" id="searchInput" class="search-input" placeholder="Поиск приложения...">
         </div>
     </div>
@@ -422,8 +412,8 @@
         <div class="app-row" data-category="bank" data-search="все учтено ак барс банк ak bars">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/akbarsbank.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/akbarsbank.webp" data-fallback="ВУ" data-fallback-src="icons_masked/akbarsbank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/akbarsbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/akbarsbank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Ак Барс Банк</div>
@@ -431,14 +421,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/akbarsbank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/akbarsbank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="умный попутчик альфа банк беларусь alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa-by.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-belarus.webp" data-fallback="УП" data-fallback-src="icons_masked/alphabank-belarus.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa-by.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-belarus.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк (BY)</div>
@@ -446,14 +436,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-belarus.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-belarus.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="bizkey альфа бизнес беларусь alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfabusiness-by.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabusiness-belarus.webp" data-fallback="BK" data-fallback-src="icons_masked/alphabusiness-belarus.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfabusiness-by.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabusiness-belarus.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Бизнес (BY)</div>
@@ -461,14 +451,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-belarus.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-belarus.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="holder альфа банк alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-holder.webp" data-fallback="HO" data-fallback-src="icons_masked/alphabank-holder.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-holder.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк</div>
@@ -476,14 +466,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-holder.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-holder.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="advance альфа банк alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfa.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabank-upgrade.webp" data-fallback="AD" data-fallback-src="icons_masked/alphabank-upgrade.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfa.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabank-upgrade.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Банк</div>
@@ -491,14 +481,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-upgrade.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabank-upgrade.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="bizbalance альфа бизнес alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabusiness-kakyest.webp" data-fallback="BB" data-fallback-src="icons_masked/alphabusiness-kakyest.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabusiness-kakyest.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Бизнес</div>
@@ -506,14 +496,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-kakyest.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-kakyest.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="business ties альфа бизнес alfa">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/alphabusiness-svyazi.webp" data-fallback="BT" data-fallback-src="icons_masked/alphabusiness-svyazi.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/alfabusiness.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/alphabusiness-svyazi.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Альфа-Бизнес</div>
@@ -521,14 +511,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-svyazi.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/alphabusiness-svyazi.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="монт бланк бланк банк blanc">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/blanc.webp" data-fallback="Б" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/blanc.webp" data-fallback="МБ" data-fallback-src="icons_masked/blanc.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/blanc.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/blanc.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Бланк банк</div>
@@ -536,15 +526,15 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/blanc.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/blanc.plist">Установить</a>
         </div>
 
         <div class="app-card" data-category="bank" data-search="точка банк Breathio">
             <div class="app-row">
                 <div class="app-left">
                     <div class="icon-stack">
-                        <div class="icon-main"><img src="icons_original/tochka.webp" data-fallback="Н" alt="Icon"></div>
-                        <div class="icon-badge"><img src="icons_masked/tochka-Breathio.webp" data-fallback="LC" data-fallback-src="icons_masked/tochka-Breathio.png" alt="Badge"></div>
+                        <div class="icon-main"><img src="icons_original/tochka.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                        <div class="icon-badge"><img src="icons_masked/tochka-Breathio.webp" alt="Badge" loading="lazy" decoding="async"></div>
                     </div>
                     <div class="app-meta">
                         <div class="app-title">Точка Банк</div>
@@ -552,7 +542,7 @@
                         <div class="badge">Банки</div>
                     </div>
                 </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tochka-Breathio.plist">⬇ Установить</a>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tochka-Breathio.plist">Установить</a>
             </div>
 
             <div class="app-footer">
@@ -563,8 +553,8 @@
         <div class="app-row" data-category="bank" data-search="home room assist дом рф dom.rf">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/domrf-bank.webp" data-fallback="Д" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/domrfbank.webp" data-fallback="HK" data-fallback-src="icons_masked/domrfbank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/domrf-bank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/domrfbank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк ДОМ.РФ</div>
@@ -572,14 +562,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/domrfbank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/domrfbank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="цифровой сейф газпромбанк gazprom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/gazprombank.webp" data-fallback="Г" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/gazprombank.webp" data-fallback="ЦС" data-fallback-src="icons_masked/gazprombank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/gazprombank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/gazprombank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Газпромбанк</div>
@@ -587,14 +577,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/gazprombank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/gazprombank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="авк гид металлинвестбанк">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/metallinvestbank.webp" data-fallback="М" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/metallinvestbank.webp" data-fallback="АГ" data-fallback-src="icons_masked/metallinvestbank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/metallinvestbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/metallinvestbank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Металлинвестбанк</div>
@@ -602,14 +592,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/metallinvestbank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/metallinvestbank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="coffee mood модульбанк">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/modulbank.webp" data-fallback="М" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/modulebank.webp" data-fallback="CM" data-fallback-src="icons_masked/modulebank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/modulbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/modulebank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Модульбанк</div>
@@ -617,15 +607,15 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/modulebank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/modulebank.plist">Установить</a>
         </div>
 
         <div class="app-card" data-category="bank" data-search="lunarcode новикомбанк">
             <div class="app-row">
                 <div class="app-left">
                     <div class="icon-stack">
-                        <div class="icon-main"><img src="icons_original/novikombank.webp" data-fallback="Н" alt="Icon"></div>
-                        <div class="icon-badge"><img src="icons_masked/novikombank.webp" data-fallback="LC" data-fallback-src="icons_masked/novikombank.png" alt="Badge"></div>
+                        <div class="icon-main"><img src="icons_original/novikombank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                        <div class="icon-badge"><img src="icons_masked/novikombank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                     </div>
                     <div class="app-meta">
                         <div class="app-title">Новикомбанк</div>
@@ -633,7 +623,7 @@
                         <div class="badge">Банки</div>
                     </div>
                 </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/novikombank.plist">⬇ Установить</a>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/novikombank.plist">Установить</a>
             </div>
 
             <div class="app-footer">
@@ -644,8 +634,8 @@
         <div class="app-row" data-category="bank" data-search="чайная псб промсвязьбанк psb">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/psb.webp" data-fallback="П" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/psb.webp" data-fallback="Ч" data-fallback-src="icons_masked/psb.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/psb.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/psb.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ПСБ</div>
@@ -653,14 +643,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/psb.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/psb.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="блум рокетбанк rocket">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rocketbank.webp" data-fallback="Р" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rocketbank-bloom.webp" data-fallback="А" data-fallback-src="icons_masked/rocketbank-bloom.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rocketbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/rocketbank-bloom.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Рокетбанк</div>
@@ -668,14 +658,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rocketbank-bloom.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rocketbank-bloom.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="аут рокетбанк rocket">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rocketbank.webp" data-fallback="Р" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rocketbank.webp" data-fallback="А" data-fallback-src="icons_masked/rocketbank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rocketbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/rocketbank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Рокетбанк</div>
@@ -683,14 +673,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rocketbank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rocketbank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="любовь и гуси россельхозбанк рсхб">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rosselhozbank.webp" data-fallback="Р" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rshb_gusi.webp" data-fallback="БК" data-fallback-src="icons_masked/rshb_gusi.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rosselhozbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/rshb_gusi.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Россельхозбанк</div>
@@ -698,14 +688,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rshb_gusi.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rshb_gusi.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="тракторный клуб россельхозбанк рсхб бизнес Свой Мобайл">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rshbb.webp" data-fallback="Р" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rshbb_traktor.webp" data-fallback="БК" data-fallback-src="icons_masked/rshbb_traktor.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rshbb.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/rshbb_traktor.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Свой Бизнес Мобайл</div>
@@ -713,14 +703,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rshbb_traktor.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rshbb_traktor.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="своё жильё свое жилье россельхозбанк рсхб идеальный дом">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/svoezhilye.webp" data-fallback="Р" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/svoezhilye.webp" data-fallback="БК" data-fallback-src="icons_masked/svoezhilye.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/svoezhilye.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/svoezhilye.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Своё Жильё</div>
@@ -728,14 +718,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/svoezhilye.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/svoezhilye.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="ritm русский стандарт">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/russianstandartbank.webp" data-fallback="Р" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/russianstandartbank.webp" data-fallback="R" data-fallback-src="icons_masked/russianstandartbank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/russianstandartbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/russianstandartbank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Русский Стандарт</div>
@@ -743,14 +733,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/russianstandartbank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/russianstandartbank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="online active сбер сбербанк sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbank.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sber-active.webp" data-fallback="OA" data-fallback-src="icons_masked/sber-active.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sber-active.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБанк</div>
@@ -758,14 +748,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-active.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-active.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="online family сбер сбербанк sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbank.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sber-family.webp" data-fallback="OF" data-fallback-src="icons_masked/sber-family.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sber-family.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБанк</div>
@@ -773,14 +763,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-family.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-family.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="online finance сбер сбербанк sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbank.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sber-finance.webp" data-fallback="OF" data-fallback-src="icons_masked/sber-finance.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sber-finance.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБанк</div>
@@ -788,14 +778,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-finance.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sber-finance.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="solar сияние сберинвестиции sberinvest">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberinvest.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberinvest-solar.webp" data-fallback="OA" data-fallback-src="icons_masked/sberinvest-solar.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberinvest.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberinvest-solar.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберИнвестиции</div>
@@ -803,14 +793,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberinvest-solar.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberinvest-solar.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="al dente сбербизнес sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberbusiness.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberbusiness-aldente.webp" data-fallback="AD" data-fallback-src="icons_masked/sberbusiness-aldente.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberbusiness.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberbusiness-aldente.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберБизнес</div>
@@ -818,14 +808,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberbusiness-aldente.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberbusiness-aldente.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="smart quiz сберкидс sber sberkids">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberkids.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberkids-quiz.webp" data-fallback="SQ" data-fallback-src="icons_masked/sberkids-quiz.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberkids.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberkids-quiz.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберKids</div>
@@ -833,14 +823,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-quiz.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-quiz.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="speakaboo сберкидс sber sberkids">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sberkids.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sberkids-speakaboo.webp" data-fallback="SB" data-fallback-src="icons_masked/sberkids-speakaboo.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sberkids.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sberkids-speakaboo.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберKids</div>
@@ -848,14 +838,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-speakaboo.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sberkids-speakaboo.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="grino банк синара sinara">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sinara.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sinara-bank.webp" data-fallback="G" data-fallback-src="icons_masked/sinara-bank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sinara.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sinara-bank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк Синара</div>
@@ -863,14 +853,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sinara-bank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sinara-bank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="SCB notes совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sovkom-SCBNotes.webp" data-fallback="ФГ" data-fallback-src="icons_masked/sovkom-SCBNotes.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sovkom-SCBNotes.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -878,14 +868,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-SCBNotes.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-SCBNotes.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="финграм совкомбанк халва sovkom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sovkombank.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sovkom-fingram.webp" data-fallback="ФГ" data-fallback-src="icons_masked/sovkom-fingram.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sovkombank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sovkom-fingram.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Совкомбанк</div>
@@ -893,14 +883,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-fingram.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sovkom-fingram.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="черника онлайн сургутнефтегазбанк">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sngb.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/surgutneftegazbank.webp" data-fallback="ЧО" data-fallback-src="icons_masked/surgutneftegazbank.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sngb.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/surgutneftegazbank.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Сургутнефтегазбанк</div>
@@ -908,14 +898,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/surgutneftegazbank.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/surgutneftegazbank.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="SpotT Spotluma т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-spotluma.webp" data-fallback="AP" data-fallback-src="icons_masked/tbank-spotluma.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-spotluma.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -923,14 +913,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-spotluma.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-spotluma.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="CraftT craftersy т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-CraftT.webp" data-fallback="AP" data-fallback-src="icons_masked/tbank-CraftT.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-CraftT.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -938,14 +928,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-CraftT.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-CraftT.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="drive t т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-DriveT.webp" data-fallback="DT" data-fallback-src="icons_masked/tbank-DriveT.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-DriveT.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -953,14 +943,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-DriveT.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-DriveT.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="toast т-банк тинькофф tinkoff">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tbank.webp" data-fallback="Т" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tbank-Toast.webp" data-fallback="T" data-fallback-src="icons_masked/tbank-Toast.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/tbank-Toast.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Банк</div>
@@ -968,14 +958,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-Toast.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tbank-Toast.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="рубли убрир ubrir">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/ubrir.webp" data-fallback="У" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/ubrir.webp" data-fallback="Р" data-fallback-src="icons_masked/ubrir.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/ubrir.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/ubrir.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">УБРиР</div>
@@ -983,14 +973,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/ubrir.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/ubrir.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="athleopro втб бизнес vtb">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/vtb-business.webp" data-fallback="В" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/vtb-business.webp" data-fallback="AP" data-fallback-src="icons_masked/vtb-business.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/vtb-business.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/vtb-business.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ВТБ Бизнес</div>
@@ -998,14 +988,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/vtb-business.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/vtb-business.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="сириус втб vtb">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/vtb.webp" data-fallback="В" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/vtb-sirius.webp" data-fallback="С" data-fallback-src="icons_masked/vtb-sirius.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/vtb.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/vtb-sirius.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ВТБ</div>
@@ -1013,40 +1003,40 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/vtb-sirius.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/vtb-sirius.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="cifra цифра банк фридом freedom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/cifra.webp" data-fallback="Ц" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/cifra.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Цифра Банк</div>
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/cifra.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/cifra.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="юmoney yoomoney яндекс деньги">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/YooMoney.webp" data-fallback="Ю" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/YooMoney.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ЮMoney</div>
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YooMoney.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YooMoney.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="savespot зенит zenit">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/zenit.webp" data-fallback="З" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/zenitbank-SaveSpot.webp" data-fallback="SS" data-fallback-src="icons_masked/zenitbank-SaveSpot.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/zenit.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/zenitbank-SaveSpot.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк Зенит</div>
@@ -1054,14 +1044,14 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/zenitbank-SaveSpot.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/zenitbank-SaveSpot.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="timetotravel зенит zenit">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/zenit.webp" data-fallback="З" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/zenitbank-TimeToTravel.webp" data-fallback="TT" data-fallback-src="icons_masked/zenitbank-TimeToTravel.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/zenit.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/zenitbank-TimeToTravel.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Банк Зенит</div>
@@ -1069,27 +1059,27 @@
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/zenitbank-TimeToTravel.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/zenitbank-TimeToTravel.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="bank" data-search="yapay яндекс пэй yandex">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/yapay.webp" data-fallback="Я" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/yapay.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Яндекс Пэй</div>
                     <div class="badge">Банки</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/yapay.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/yapay.plist">Установить</a>
         </div>
         
         <div class="app-row" data-category="shop" data-search="авито patrol kit patrolkit объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/avito-patrolkit.webp" data-fallback="AN" data-fallback-src="icons_masked/avito-patrolkit.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/avito-patrolkit.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1097,14 +1087,14 @@
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito-patrolkit.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito-patrolkit.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="shop" data-search="авито anero онлайн помощник объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/avito-anero.webp" data-fallback="AN" data-fallback-src="icons_masked/avito-anero.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/avito-anero.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1112,14 +1102,14 @@
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito-anero.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito-anero.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="shop" data-search="авито au ау.ру объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/avito-au.webp" data-fallback="AU" data-fallback-src="icons_masked/avito-au.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/avito-au.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
@@ -1127,40 +1117,40 @@
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito-au.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito-au.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="shop" data-search="авито 200.5 объявления avito">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/avito.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/avito.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Авито</div>
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/avito.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="shop" data-search="youla юла">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/youla.webp" data-fallback="А" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/youla.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Юла</div>
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/youla.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/youla.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="shop" data-search="купер сбермаркет доставка еда магазины">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/kuper.webp" data-fallback="К" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/kuper.webp" data-fallback="К" data-fallback-src="icons_masked/kuper.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/kuper.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/kuper.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Купер</div>
@@ -1168,14 +1158,14 @@
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/kuper.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/kuper.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="shop" data-search="л доставка лента еда магазины">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/lenta.webp" data-fallback="Л" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/lenta.webp" data-fallback="Л" data-fallback-src="icons_masked/lenta.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/lenta.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/lenta.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Лента</div>
@@ -1183,40 +1173,40 @@
                     <div class="badge">Магазины</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/lenta.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/lenta.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="max макс соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/max.webp" data-fallback="M" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/max.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">MAX</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/max.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/max.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="time тайм соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/time.webp" data-fallback="T" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/time.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">TiMe</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/TiMe.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/TiMe.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="syncer синсер time тайм соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/time.webp" data-fallback="T" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/TiMe-syncer.webp" data-fallback="S" data-fallback-src="icons_masked/TiMe-syncer.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/time.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/TiMe-syncer.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">TiMe</div>
@@ -1224,28 +1214,28 @@
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/TiMe-syncer.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/TiMe-syncer.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="ok одноклассники соцсеть">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/odnoklassniki.webp" data-fallback="О" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/odnoklassniki.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Одноклассники</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/odnoklassniki.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/odnoklassniki.plist">Установить</a>
         </div>
 
         <div class="app-card" data-category="social" data-search="slicingdices rutube рутуб видео">
             <div class="app-row">
                 <div class="app-left">
                     <div class="icon-stack">
-                        <div class="icon-main"><img src="icons_original/rutube.webp" data-fallback="R" alt="Icon"></div>
-                        <div class="icon-badge"><img src="icons_masked/rutube-SlicingDices.webp" data-fallback="SD" data-fallback-src="icons_masked/rutube-SlicingDices.png" alt="Badge"></div>
+                        <div class="icon-main"><img src="icons_original/rutube.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                        <div class="icon-badge"><img src="icons_masked/rutube-SlicingDices.webp" alt="Badge" loading="lazy" decoding="async"></div>
                     </div>
                     <div class="app-meta">
                         <div class="app-title">Rutube</div>
@@ -1253,7 +1243,7 @@
                         <div class="badge">Соцсети</div>
                     </div>
                 </div>
-                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-SlicingDices.plist">⬇ Установить</a>
+                <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-SlicingDices.plist">Установить</a>
             </div>
 
             <div class="app-footer">
@@ -1264,8 +1254,8 @@
         <div class="app-row" data-category="social" data-search="spaceshipsbattle rutube рутуб видео">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rutube.webp" data-fallback="R" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/rutube-starship.webp" data-fallback="SB" data-fallback-src="icons_masked/rutube-starship.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rutube.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/rutube-starship.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Rutube</div>
@@ -1273,14 +1263,14 @@
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-starship.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/rutube-starship.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="rstudio rutube рутуб видео студия">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/rstudio.webp" data-fallback="R" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/RStudio.webp" data-fallback="SB" data-fallback-src="icons_masked/RStudio.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/rstudio.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/RStudio.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">RStudio</div>
@@ -1288,92 +1278,92 @@
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/RStudio.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/RStudio.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="vk вк вконтакте">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VK.webp" data-fallback="V" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VK.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">ВКонтакте</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VK.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VK.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="vk messenger вк мессенджер">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VKMessenger.webp" data-fallback="V" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VKMessenger.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">VK Мессенджер</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKMessenger.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKMessenger.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="vk music вк музыка">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VKMusic.webp" data-fallback="V" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VKMusic.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">VK Музыка</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKMusic.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKMusic.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="vk video вк видео">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/VKVideo.webp" data-fallback="VV" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/VKVideo.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">VK Видео</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKVideo.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/VKVideo.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="social" data-search="окко okko">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/okko.webp" data-fallback="VV" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/okko.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Okko</div>
                     <div class="badge">Соцсети</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/okko.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/okko.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="2gis 2гис карта навигатор">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/2gis.webp" data-fallback="2" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/2gis.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">2ГИС</div>
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/2gis.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/2gis.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="проскорость дом ру провайдер dom">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/domru.webp" data-fallback="Д" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/domru.webp" data-fallback="ПС" data-fallback-src="icons_masked/domru.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/domru.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/domru.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Дом.ру</div>
@@ -1381,14 +1371,14 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/domru.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/domru.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="мобио сбермобайл связь sber">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/sbermobile.webp" data-fallback="С" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/sbermobile-mobio.webp" data-fallback="М" data-fallback-src="icons_masked/sbermobile-mobio.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/sbermobile.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/sbermobile-mobio.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">СберМобайл</div>
@@ -1396,14 +1386,14 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sbermobile-mobio.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/sbermobile-mobio.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="kakjit т-ж журнал тинькофф">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/tj.webp" data-fallback="T" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/tj.webp" data-fallback="K" data-fallback-src="icons_masked/tj.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/tj.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/tj.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Т-Ж</div>
@@ -1411,27 +1401,27 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tj.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/tj.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="yota йота связь">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/yota.webp" data-fallback="Y" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/yota.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">YOTA</div>
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YOTA.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YOTA.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="yota йота связь atoy">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/yota.webp" data-fallback="Y" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/YOTA-Atoy.webp" data-fallback="Y" data-fallback-src="icons_masked/YOTA-Atoy.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/yota.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/YOTA-Atoy.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">YOTA</div>
@@ -1439,14 +1429,14 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YOTA-Atoy.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/YOTA-Atoy.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="document list appbank каталог">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/appbank.webp" data-fallback="A" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/appbank-DocumentList.webp" data-fallback="DL" data-fallback-src="icons_masked/appbank-DocumentList.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/appbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/appbank-DocumentList.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">AppBank</div>
@@ -1454,14 +1444,14 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-DocumentList.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-DocumentList.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="moodpetal appbank каталог">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/appbank.webp" data-fallback="A" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/appbank-moodpetal.webp" data-fallback="MP" data-fallback-src="icons_masked/appbank-moodpetal.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/appbank.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/appbank-moodpetal.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">AppBank</div>
@@ -1469,14 +1459,14 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-moodpetal.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/appbank-moodpetal.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="газпромнефть бак бонус">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/gazpromneft.webp" data-fallback="Г" alt="Icon"></div>
-                    <div class="icon-badge"><img src="icons_masked/gazpromneft.webp" data-fallback="ЦС" data-fallback-src="icons_masked/gazpromneft.png" alt="Badge"></div>
+                    <div class="icon-main"><img src="icons_original/gazpromneft.webp" alt="Icon" loading="lazy" decoding="async"></div>
+                    <div class="icon-badge"><img src="icons_masked/gazpromneft.webp" alt="Badge" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">Газпромнефть</div>
@@ -1484,20 +1474,20 @@
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/gazpromneft.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/gazpromneft.plist">Установить</a>
         </div>
 
         <div class="app-row" data-category="other" data-search="incy">
             <div class="app-left">
                 <div class="icon-stack">
-                    <div class="icon-main"><img src="icons_original/incy.webp" data-fallback="Г" alt="Icon"></div>
+                    <div class="icon-main"><img src="icons_original/incy.webp" alt="Icon" loading="lazy" decoding="async"></div>
                 </div>
                 <div class="app-meta">
                     <div class="app-title">INCY</div>
                     <div class="badge">Прочее</div>
                 </div>
             </div>
-            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/incy.plist">⬇ Установить</a>
+            <a class="btn-download" href="itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/incy.plist">Установить</a>
         </div>
     </div>
     
@@ -1532,17 +1522,6 @@
         const searchInput = document.getElementById('searchInput');
         const cards = document.querySelectorAll('#appsContainer > .app-row, #appsContainer > .app-card');
         const tabs = document.querySelectorAll('.tab-btn');
-
-        document.querySelectorAll('img[data-fallback]').forEach(img => {
-            img.addEventListener('error', () => {
-                if (img.dataset.fallbackSrc && !img.dataset.fallbackTried) {
-                    img.dataset.fallbackTried = '1';
-                    img.src = img.dataset.fallbackSrc;
-                } else {
-                    img.parentElement.textContent = img.dataset.fallback;
-                }
-            });
-        });
 
         function filterApps() {
             const query = searchInput.value.trim().toLowerCase();
