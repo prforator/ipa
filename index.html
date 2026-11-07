@@ -761,7 +761,6 @@
             const safeI = sanitizeId(app.i || app.p);
             const safeB = app.b ? sanitizeId(app.b) : '';
 
-            // Исправлено: прямой URL для манифеста, без двойного кодирования
             const plistUrl = `itms-services://?action=download-manifest&url=https://prforator.github.io/ipa/plists/${safeP}.plist`;
             const iconSrc = `icons_original/${safeI}.webp`;
             const badgeSrc = safeB ? `icons_masked/${safeB}.webp` : '';
